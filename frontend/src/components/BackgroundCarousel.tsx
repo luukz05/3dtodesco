@@ -29,7 +29,7 @@ export default function BackgroundCarousel() {
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         effect="fade"
         loop={true}
-        allowTouchMove={true}
+        allowTouchMove={false}
         pagination={{ clickable: true }}
         className="h-full w-full"
       >
@@ -39,11 +39,11 @@ export default function BackgroundCarousel() {
               className="h-full w-full bg-cover bg-center flex items-center "
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className="text-white text-center px-4 ml-55">
-                <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+              <div className="text-white text-center px-4 ml-40">
+                <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg select-none">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl max-w-xl mx-auto drop-shadow-lg">
+                <p className="text-lg md:text-xl max-w-xl mx-auto drop-shadow-lg select-none">
                   {slide.description}
                 </p>
               </div>
