@@ -1,70 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import ItemCard from "@/components/ItemCard";
 import NavbarDropdown from "@/components/Navbar";
 import BackgroundCarousel from "@/components/BackgroundCarousel";
 
-const produtos = [
-  {
-    id: 1,
-    nome: "Suporte de Celular 3D",
-    preco: "R$ 25,00",
-    imagem: "/produtos/suporte-celular.jpg",
-    descricao: "Suporte prático e resistente para celulares, feito sob medida.",
-  },
-  {
-    id: 2,
-    nome: "Organizador de Cabos",
-    preco: "R$ 15,00",
-    imagem: "/produtos/organizador-cabos.jpg",
-    descricao: "Mantenha sua mesa organizada com estilo.",
-  },
-  {
-    id: 3,
-    nome: "Mini Vaso Decorativo",
-    preco: "R$ 30,00",
-    imagem: "/produtos/vaso.jpg",
-    descricao: "Ideal para decorar ambientes com personalidade.",
-  },
-  {
-    id: 4,
-    nome: "Mini Vasos Decorativos",
-    preco: "R$ 300,00",
-    imagem: "/produtos/vaso.jpg",
-    descricao: "Ideal para decorar ambientes com personalidade.",
-  },
-  {
-    id: 5,
-    nome: "Suporte de Celular 3D",
-    preco: "R$ 25,00",
-    imagem: "/produtos/suporte-celular.jpg",
-    descricao: "Suporte prático e resistente para celulares, feito sob medida.",
-  },
-  {
-    id: 6,
-    nome: "Organizador de Cabos",
-    preco: "R$ 15,00",
-    imagem: "/produtos/organizador-cabos.jpg",
-    descricao: "Mantenha sua mesa organizada com estilo.",
-  },
-  {
-    id: 7,
-    nome: "Mini Vaso Decorativo",
-    preco: "R$ 30,00",
-    imagem: "/produtos/vaso.jpg",
-    descricao: "Ideal para decorar ambientes com personalidade.",
-  },
-  {
-    id: 8,
-    nome: "Mini Vasos Decorativos",
-    preco: "R$ 300,00",
-    imagem: "/produtos/vaso.jpg",
-    descricao: "Ideal para decorar ambientes com personalidade.",
-  },
-  // ... continue com seus produtos
-];
+type Produto = {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+};
 
 export default function Home() {
+  const [produtos, setProdutos] = useState<Produto[]>([]);
+
+  useEffect(() => {
+    async function fetchProdutos() {
+      try {
+        const res = await fetch("https://dummyjson.com/products");
+        const data = await res.json();
+        setProdutos(data.products);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    }
+
+    fetchProdutos();
+  }, []);
+
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
       <NavbarDropdown />
@@ -80,10 +44,10 @@ export default function Home() {
           {produtos.map((produto) => (
             <ItemCard
               key={produto.id}
-              produto={produto}
-              imagem={"/pcd.png"}
-              preco={produto.preco}
-              nome={produto.nome}
+              id={produto.id}
+              imagem={"/pcd.png"} // você pode alterar para produto.thumbnail se quiser usar imagem da API
+              preco={produto.price}
+              nome={produto.title}
             />
           ))}
         </div>
