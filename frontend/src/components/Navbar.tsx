@@ -26,10 +26,10 @@ import {
 
 export default function NavbarDropdown() {
   return (
-    <nav className="flex justify-around items-center fixed top-0 left-0 right-0 bg-white shadow-md h-10 z-50">
+    <nav className="flex justify-around items-center fixed top-0 left-0 right-0 bg-white shadow-md h-18 z-50">
       {/* Logo */}
       <Link href="/" className="mx-4">
-        <Image src="/typo.png" alt="Logo" width={100} height={100} />
+        <Image src="/typo.png" alt="Logo" width={150} height={150} />
       </Link>
 
       {/* Menu principal */}

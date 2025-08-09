@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ItemCard from "@/components/ItemCard";
 import NavbarDropdown from "@/components/Navbar";
 import BackgroundCarousel from "@/components/BackgroundCarousel";
+import Line from "@/components/line";
 
 type Produto = {
   id: number;
@@ -34,10 +35,10 @@ export default function Home() {
       <NavbarDropdown />
 
       {/* Hero com carrossel */}
-      <section className="relative h-[90vh] w-full">
+      <section className="relative h-[50vh] w-full">
         <BackgroundCarousel />
       </section>
-
+      <Line />
       {/* Produtos */}
       <section className="pt-16 pb-20 px-6">
         <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
