@@ -5,11 +5,12 @@ from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from pymongo import MongoClient
 import requests
+from flask_cors import CORS
 
 load_dotenv()
 
 app = Flask(__name__)
-
+CORS(app)
 
 try:
     client = MongoClient(os.getenv('MONGO_URI'))

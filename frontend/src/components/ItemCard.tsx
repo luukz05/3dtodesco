@@ -37,7 +37,7 @@ export default function ItemCard({
               {produto?.nome || nome}
             </h3>
             <span className="text-sm font-semibold text-primary">
-              R$ {preco}
+              R$ {preco},00
             </span>
           </div>
         </CardContent>

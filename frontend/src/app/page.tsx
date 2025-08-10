@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import ItemCard from "@/components/ItemCard";
-import NavbarDropdown from "@/components/Navbar";
+import { MainNavigation } from "@/components/Navbar";
 import BackgroundCarousel from "@/components/BackgroundCarousel";
 import Line from "@/components/line";
+import { Sidebar } from "@/components/altmenu";
 
 type Produto = {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
+  _id: string; // mudou para string e _id
+  descricao: string;
+  nome: string;
+  preco: number;
+  url_imagem: string;
 };
 
 export default function Home() {
@@ -19,9 +21,9 @@ export default function Home() {
   useEffect(() => {
     async function fetchProdutos() {
       try {
-        const res = await fetch("https://dummyjson.com/products");
+        const res = await fetch("http://127.0.0.1:5000/api/produtos");
         const data = await res.json();
-        setProdutos(data.products);
+        setProdutos(data);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
       }
@@ -32,23 +34,26 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
-      <NavbarDropdown />
+      <MainNavigation />
+      {/* <Sidebar /> */}
 
       {/* Hero com carrossel */}
       <section className="relative h-[50vh] w-full">
         <BackgroundCarousel />
       </section>
       <Line />
-      {/* Produtos */}
-      <section className="pt-16 pb-20 px-6">
+      <section>
+        <h1 className="text-4xl font-medium text-center mb-10 mt-10">
+          Destaques
+        </h1>
         <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {produtos.map((produto) => (
             <ItemCard
-              key={produto.id}
-              id={produto.id}
-              imagem={"/pcd.png"} // você pode alterar para produto.thumbnail se quiser usar imagem da API
-              preco={produto.price}
-              nome={produto.title}
+              key={produto._id}
+              id={produto._id}
+              imagem={produto.url_imagem}
+              preco={produto.preco}
+              nome={produto.nome}
             />
           ))}
         </div>

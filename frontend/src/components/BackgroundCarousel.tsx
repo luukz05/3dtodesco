@@ -11,15 +11,15 @@ import { useState } from "react";
 const slides = [
   {
     image: "/slide-1.jpg",
-    title: "Bem-vindo ao nosso site",
+    title: "Bem-vindo à 3DTodesco",
     description:
-      "Aqui você encontra as melhores soluções em tecnologia e inovação para o seu negócio.",
+      "Aqui nós transformamos suas ideias em realidade com impressões 3D de alta qualidade.",
   },
   {
     image: "/slide-2.jpg",
-    title: "Descubra nossos projetos",
+    title: "Confira nossos produtos",
     description:
-      "Conheça cases de sucesso que desenvolvemos com nossos clientes e parceiros.",
+      "Conheça nossa variedade de produtos personalizados e técnicos.",
   },
 ];
 
