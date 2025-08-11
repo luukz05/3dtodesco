@@ -8,7 +8,7 @@ import Line from "@/components/line";
 import { Sidebar } from "@/components/altmenu";
 
 type Produto = {
-  _id: string; // mudou para string e _id
+  _id: string;
   descricao: string;
   nome: string;
   preco: number;
@@ -34,7 +34,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
-      <MainNavigation />
+      <nav className="flex justify-center items-center bg-white shadow-md">
+        <MainNavigation />
+      </nav>
       {/* <Sidebar /> */}
 
       {/* Hero com carrossel */}
@@ -51,7 +53,7 @@ export default function Home() {
             <ItemCard
               key={produto._id}
               id={produto._id}
-              imagem={produto.url_imagem}
+              imagem={produto.url_imagem[0]}
               preco={produto.preco}
               nome={produto.nome}
             />
@@ -61,8 +63,8 @@ export default function Home() {
 
       <footer className="bg-gray-900 text-white py-6 text-center mt-12">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Impressão 3D Criativa. Todos os
-          direitos reservados.
+          &copy; {new Date().getFullYear()} 3DTodesco. Todos os direitos
+          reservados.
         </p>
       </footer>
     </main>
