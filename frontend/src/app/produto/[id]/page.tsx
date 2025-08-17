@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/carousel";
 import Image from "next/image";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
-import Footer from "@/components/Footer";
-import { TbShoppingCartBolt, TbShoppingCartPlus } from "react-icons/tb";
+import { Badge } from "@/components/ui/badge";
 import BotaoComprarAgora from "@/components/ComprarAgora";
 import BotaoAdicionarCarrinho from "@/components/AdicionarCarrinho";
 import QuantidadeSelector from "@/components/QuantidadeSelector";
 import React from "react";
 import Line from "@/components/line";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export default function ProdutoPage({
   params,
@@ -51,29 +51,33 @@ export default function ProdutoPage({
           <Carousel>
             <CarouselPrevious className="hover:cursor-pointer" />
             <CarouselContent>
-              {(produto.url_imagem || []).map((imagem: string, i: number) => (
-                <CarouselItem key={i} className="w-[100px] h-full">
-                  <AspectRatio
-                    ratio={1 / 1}
-                    className="bg-muted overflow-hidden w-full h-full"
-                  >
-                    <Image
-                      src={imagem}
-                      alt={`Imagem do produto ${i + 1}`}
-                      fill
-                      className="object-cover select-none"
-                      priority={i === 0}
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                  </AspectRatio>
-                </CarouselItem>
-              ))}
+              {(produto.imagens || []).map(
+                (
+                  imagem: { url: string | StaticImport },
+                  i: React.Key | null | undefined
+                ) => (
+                  <CarouselItem key={i} className="w-[100px] h-full">
+                    <AspectRatio
+                      ratio={1 / 1}
+                      className="bg-muted overflow-hidden w-full h-full"
+                    >
+                      <Image
+                        src={imagem.url} // pegando a url do objeto
+                        alt={`Imagem do produto ${produto.nome}`}
+                        fill
+                        className="object-cover select-none"
+                        priority={i === 0}
+                        loading={i === 0 ? "eager" : "lazy"}
+                      />
+                    </AspectRatio>
+                  </CarouselItem>
+                )
+              )}
             </CarouselContent>
             <CarouselNext className="hover:cursor-pointer" />
           </Carousel>
           <p className="text-xs text-center my-2">
-            Imagens via{" "}
-            <span className="text-green-400 font-semibold">Maker World</span>
+            Imagens via <span className=" font-semibold">{produto.origem}</span>
           </p>
         </div>
 
@@ -83,10 +87,15 @@ export default function ProdutoPage({
             <h1 className="text-3xl font-bold leading-tight mb-4">
               {produto.nome}
             </h1>
-            <p className="text-2xl font-semibold text-black mb-4">
-              R$ {produto.preco},00{" "}
-              <span className="text-sm font-thin text-gray-500">via Pix</span>
-            </p>
+            <div className="flex items-center justify-between mb-4 flex-row">
+              <p className="text-2xl font-semibold text-black ">
+                R$ {produto.preco},00{" "}
+                <span className="text-sm font-thin text-gray-500">via Pix</span>
+              </p>
+              <p>
+                Categoria: <Badge>{produto.categoria}</Badge>
+              </p>
+            </div>
             <QuantidadeSelector quantidade={1} setQuantidade={() => {}} />
           </div>
 
@@ -106,25 +115,49 @@ export default function ProdutoPage({
               <div className="divide-y divide-gray-200">
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Largura</span>
-                  <span>X,XX cm</span>
+                  <span>
+                    {produto.largura?.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }) || "—"}{" "}
+                    cm
+                  </span>
                 </div>
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">
                     Profundidade
                   </span>
-                  <span>X,XX cm</span>
+                  <span>
+                    {produto.profundidade?.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }) || "—"}{" "}
+                    cm
+                  </span>
                 </div>
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Altura</span>
-                  <span>X,XX cm</span>
+                  <span>
+                    {produto.altura?.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }) || "—"}{" "}
+                    cm
+                  </span>
                 </div>
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Peso</span>
-                  <span>XXX gramas</span>
+                  <span>
+                    {produto.peso?.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }) || "—"}{" "}
+                    g
+                  </span>
                 </div>
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Material</span>
-                  <span>PLA (Filamento Sólido e GTMax)</span>
+                  <span>{produto.material}</span>
                 </div>
               </div>
             </div>

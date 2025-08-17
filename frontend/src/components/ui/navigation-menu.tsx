@@ -42,7 +42,7 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
-                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                  className="block font-semibold px-3 py-2 text-sm  hover:text-primary"
                 >
                   Games
                 </Link>
@@ -53,7 +53,7 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
-                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                  className="block px-3 py-2 text-sm font-semibold hover:text-primary"
                 >
                   Animes
                 </Link>
@@ -64,7 +64,7 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
-                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                  className="block px-3 py-2 text-sm font-semibold hover:text-primary"
                 >
                   Filmes e Séries
                 </Link>
@@ -74,7 +74,7 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
-                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                  className="block px-3 py-2 text-sm font-semibold hover:text-primary"
                 >
                   Personalizados
                 </Link>
@@ -84,7 +84,7 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
-                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                  className="block px-3 py-2 text-sm font-semibold hover:text-primary"
                 >
                   Organizadores
                 </Link>
@@ -94,7 +94,7 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/"
-                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                  className="block px-3 py-2 text-sm font-semibold hover:text-primary"
                 >
                   Todos os Produtos
                 </Link>
@@ -154,7 +154,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-10 w-full items-center justify-center rounded-md px-4 py-2 text-sm font-medium hover:cursor-pointer hover:text-blue-600 focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/20 focus-visible:ring-ring/20 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
+  "group inline-flex h-10 w-full items-center justify-center rounded-md px-4 py-2 text-sm font-semibold hover:cursor-pointer hover:text-blue-600 focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-accent data-[state=open]:text-accent-foreground data-[state=open]:focus:bg-accent data-[state=open]:bg-accent/20 focus-visible:ring-ring/20 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1"
 );
 
 function NavigationMenuTrigger({

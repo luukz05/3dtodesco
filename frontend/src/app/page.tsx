@@ -7,12 +7,23 @@ import BackgroundCarousel from "@/components/BackgroundCarousel";
 import Line from "@/components/line";
 import { Sidebar } from "@/components/altmenu";
 
+type ImagemProduto = {
+  url: string;
+  origem: string;
+};
+
 type Produto = {
   _id: string;
   descricao: string;
   nome: string;
   preco: number;
-  url_imagem: string;
+  altura?: number;
+  largura?: number;
+  profundidade?: number;
+  peso?: number;
+  material?: string;
+  origem?: string;
+  imagens: ImagemProduto[]; // array de objetos com url e origem
 };
 
 export default function Home() {
@@ -47,7 +58,7 @@ export default function Home() {
             <ItemCard
               key={produto._id}
               id={produto._id}
-              imagem={produto.url_imagem[0]}
+              imagem={produto?.imagens?.[0]?.url} // <- aqui pegamos a URL da primeira imagem
               preco={produto.preco}
               nome={produto.nome}
             />

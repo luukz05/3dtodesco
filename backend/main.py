@@ -115,6 +115,7 @@ def obter_produto(id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
 # Rota para criar um novo produto com uma imagem
 @app.route('/api/produtos', methods=['POST'])
 def criar_produto():
@@ -129,13 +130,24 @@ def criar_produto():
         # Faz upload de cada imagem e salva as URLs no array
         for imagem in imagens:
             resultado_cloudinary = cloudinary.uploader.upload(imagem)
-            url_imagens.append(resultado_cloudinary['secure_url'])
+            url_imagens.append({
+                "url": resultado_cloudinary['secure_url'],
+                "origem": "upload"  # você pode mudar isso futuramente (ex: 'importado', 'gerado', etc.)
+            })
 
         # 2. Pega os outros dados do produto do corpo da requisição
         data = request.form
         nome = data.get('nome')
         descricao = data.get('descricao')
         preco = data.get('preco')
+
+        altura = data.get('altura')
+        largura = data.get('largura')
+        profundidade = data.get('profundidade')
+        peso = data.get('peso')
+        material = data.get('material')
+        origem = data.get('origem')  # origem geral do produto
+        categoria = data.get("categoria")
 
         # Limita a descrição a 255 caracteres
         if descricao and len(descricao) > 255:
@@ -145,8 +157,15 @@ def criar_produto():
         novo_produto = {
             'nome': nome,
             'descricao': descricao,
-            'preco': float(preco),
-            'url_imagem': url_imagens  # agora é uma lista de URLs
+            'preco': float(preco) if preco else 0.0,
+            'altura': float(altura) if altura else None,
+            'largura': float(largura) if largura else None,
+            'profundidade': float(profundidade) if profundidade else None,
+            'peso': float(peso) if peso else None,
+            'material': material,
+            'origem': origem,
+            'imagens': url_imagens,  # lista de objetos com {url, origem}
+            "categoria":categoria
         }
 
         resultado_insercao = produtos_collection.insert_one(novo_produto)
@@ -158,6 +177,7 @@ def criar_produto():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 
 
