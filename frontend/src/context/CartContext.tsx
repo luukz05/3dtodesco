@@ -6,29 +6,40 @@ interface Produto {
   id: string;
   nome: string;
   preco: number;
+}
+
+interface ProdutoNoCarrinho extends Produto {
+  cartItemId: string;
   quantidade: number;
 }
 
 interface CartContextProps {
-  carrinho: Produto[];
+  carrinho: ProdutoNoCarrinho[];
   adicionarProduto: (produto: Produto) => void;
-  removerProduto: (id: string) => void;
+  removerProduto: (cartItemId: string) => void;
   finalizarCompra: () => void;
+  limparCarrinho: () => void; // nome unificado
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [carrinho, setCarrinho] = useState<Produto[]>([]);
-
-  const numeroWhatsApp = "5515991950200"; // Coloque seu número
+  const [carrinho, setCarrinho] = useState<ProdutoNoCarrinho[]>([]);
+  const numeroWhatsApp = "5515991950200";
 
   const adicionarProduto = (produto: Produto) => {
-    setCarrinho((prev) => [...prev, produto]);
+    setCarrinho((prev) => [
+      ...prev,
+      { ...produto, cartItemId: crypto.randomUUID(), quantidade: 1 },
+    ]);
   };
 
-  const removerProduto = (id: string) => {
-    setCarrinho((prev) => prev.filter((p) => p.id !== id));
+  const removerProduto = (cartItemId: string) => {
+    setCarrinho((prev) => prev.filter((p) => p.cartItemId !== cartItemId));
+  };
+
+  const limparCarrinho = () => {
+    setCarrinho([]);
   };
 
   const finalizarCompra = () => {
@@ -40,17 +51,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const mensagem = carrinho
       .map(
         (p, i) =>
-          `\n${i + 1}. ${p.nome} - R$ ${p.preco},00 - Quantidade: ${
+          `${i + 1}. ${p.nome} - R$ ${p.preco},00 - Quantidade: ${
             p.quantidade
           } un.`
       )
       .join("\n");
 
+    const total = carrinho.reduce(
+      (total, p) => total + p.preco * p.quantidade,
+      0
+    );
+
     const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(
-      `Olá! Gostaria de comprar os seguintes produtos: ${mensagem}\n\nTotal: R$ ${carrinho.reduce(
-        (total, p) => total + p.preco,
-        0
-      )},00`
+      `Olá! Gostaria de comprar os seguintes produtos:\n${mensagem}\n\nTotal: R$ ${total},00`
     )}`;
 
     window.open(url, "_blank");
@@ -58,7 +71,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{ carrinho, adicionarProduto, removerProduto, finalizarCompra }}
+      value={{
+        carrinho,
+        adicionarProduto,
+        removerProduto,
+        finalizarCompra,
+        limparCarrinho,
+      }}
     >
       {children}
     </CartContext.Provider>

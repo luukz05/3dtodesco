@@ -8,12 +8,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { TbShoppingCart } from "react-icons/tb";
 import { ImWhatsapp } from "react-icons/im";
+import { TbShoppingCartX } from "react-icons/tb";
 
 import { useCart } from "@/context/CartContext";
 import { RxCross2 } from "react-icons/rx";
 
 export default function CartIcon() {
-  const { carrinho, removerProduto, finalizarCompra } = useCart();
+  const { carrinho, removerProduto, finalizarCompra, limparCarrinho } =
+    useCart();
 
   return (
     <Popover>
@@ -61,21 +63,30 @@ export default function CartIcon() {
                 {/* Botão remover */}
                 <Button
                   variant="ghost"
-                  className="col-span-2 text-red-600 hover:text-red-800 justify-self-end"
-                  onClick={() => removerProduto(item.id)}
+                  className="col-span-2 text-red-600 hover:text-red-800 justify-self-end hover:cursor-pointer"
+                  onClick={() => removerProduto(item.cartItemId)}
                 >
-                  <RxCross2 />
+                  <RxCross2 className="" />
                 </Button>
               </div>
             ))}
 
-            <Button
-              className="mt-2 w-full bg-green-600 hover:bg-green-500 text-white"
-              onClick={finalizarCompra}
-            >
-              Finalizar no WhatsApp
-              <ImWhatsapp className="size-4" />
-            </Button>
+            <div className="flex justify-between items-center mt-4 gap-2">
+              <Button
+                className="mt-2 flex-1 bg-green-600 hover:bg-green-500 text-white"
+                onClick={finalizarCompra}
+              >
+                Finalizar no WhatsApp
+                <ImWhatsapp className="size-4 ml-1" />
+              </Button>
+              <Button
+                className="mt-2 w-1/3 bg-red-600 hover:bg-red-500 text-white"
+                onClick={limparCarrinho}
+              >
+                Limpar Carrinho
+                <TbShoppingCartX className="size-4 ml-1" />
+              </Button>
+            </div>
           </div>
         )}
       </PopoverContent>
