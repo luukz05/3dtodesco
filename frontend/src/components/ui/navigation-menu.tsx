@@ -25,7 +25,7 @@ function NavigationMenu({
 }) {
   return (
     <div className={cn("w-full border-b bg-background", className)}>
-      <div className="mx-auto flex items-center justify-between w-full px-4 py-2 gap-4">
+      <div className="mx-auto flex items-center justify-between w-full px-4 py-2 gap-4 ">
         {/* LOGO */}
         <Link href={"/"} className="flex items-center gap-2">
           <Image src="/typo.png" alt="Logo" width={130} height={100} priority />
@@ -34,65 +34,41 @@ function NavigationMenu({
         <NavigationMenuPrimitive.Root
           data-slot="navigation-menu"
           data-viewport={viewport}
-          className="mx-auto h-18 flex items-center justify-between bg-white px-4"
+          className="mx-auto h-18 flex items-center justify-between bg-white px-4 "
           {...props}
         >
           <NavigationMenuList>
-            {/* Menu com submenu */}
-            <NavigationMenuItem className="z-20 ">
-              <NavigationMenuTrigger>Animes</NavigationMenuTrigger>
-              <NavigationMenuContent className="bg-popover rounded-md p-4">
-                <ul className="grid gap-3 md:w-[200px]">
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href="/produtos/categoria1"
-                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                      >
-                        Naruto
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href="/produtos/categoria2"
-                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                      >
-                        Dragon Ball
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                </ul>
-              </NavigationMenuContent>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                >
+                  Games
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Filmes e Séries</NavigationMenuTrigger>
-              <NavigationMenuContent className="bg-popover rounded-md shadow-md p-4">
-                <ul className="grid gap-3 md:w-[200px]">
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href="/servicos/consultoria"
-                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                      >
-                        Transformers
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href="/servicos/suporte"
-                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-                      >
-                        Stranger Things
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                </ul>
-              </NavigationMenuContent>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                >
+                  Animes
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                >
+                  Filmes e Séries
+                </Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
@@ -140,9 +116,9 @@ function NavigationMenu({
           <CartIcon />
 
           {/* Usuário */}
-          <Button variant="ghost" size="icon">
+          {/* <Button variant="ghost" size="icon">
             <User className="size-5" />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
@@ -171,7 +147,7 @@ function NavigationMenuItem({
   return (
     <NavigationMenuPrimitive.Item
       data-slot="navigation-menu-item"
-      className={cn("relative", className)}
+      className={cn("relative ", className)}
       {...props}
     />
   );

@@ -28,7 +28,7 @@ export default function CartIcon() {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-96">
+      <PopoverContent className="w-[600px] p-4">
         <h3 className="font-bold mb-2 ">Carrinho</h3>
         {carrinho.length === 0 ? (
           <p className="text-center text-gray-500/40">
@@ -36,10 +36,10 @@ export default function CartIcon() {
           </p>
         ) : (
           <div className="flex flex-col gap-2">
-            {carrinho.map((item) => (
+            {carrinho.map((item, index) => (
               <div
-                key={item.id}
-                className="grid grid-cols-[1fr_auto_auto] items-center gap-4 border-b pb-2"
+                key={`${item.id}-${index}`}
+                className="flex justify-between items-center"
               >
                 {/* Nome do produto alinhado à esquerda */}
                 <span className="truncate">{item.nome}</span>
@@ -50,12 +50,11 @@ export default function CartIcon() {
                 </span>
 
                 <span className="text-right font-medium">
-                  R$ {item.preco},00
+                  {item.quantidade ?? 0} un.
                 </span>
 
                 {/* Botão remover alinhado à direita */}
                 <Button
-                  size="sm"
                   variant="ghost"
                   className="text-red-600 hover:text-red-800"
                   onClick={() => removerProduto(item.id)}

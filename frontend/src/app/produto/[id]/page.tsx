@@ -1,4 +1,6 @@
-// app/loja/[id]/page.tsx
+"use client";
+
+import { use, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -8,26 +10,39 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import { MainNavigation } from "@/components/Navbar";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Footer from "@/components/Footer";
-import { TbShoppingCartBolt } from "react-icons/tb";
-
-import { TbShoppingCartPlus } from "react-icons/tb";
+import { TbShoppingCartBolt, TbShoppingCartPlus } from "react-icons/tb";
 import BotaoComprarAgora from "@/components/ComprarAgora";
 import BotaoAdicionarCarrinho from "@/components/AdicionarCarrinho";
+import QuantidadeSelector from "@/components/QuantidadeSelector";
+import React from "react";
 
-export default async function ProdutoPage({
+export default function ProdutoPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const res = await fetch(`http://127.0.0.1:5000/api/produtos/${params.id}`);
-  const produto = await res.json();
+  // ✅ Resolve o params com React.use()
+  const { id } = use(params);
+
+  // Aqui já pode usar o id normalmente
+  const [produto, setProduto] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    fetch(`http://127.0.0.1:5000/api/produtos/${id}`)
+      .then((res) => res.json())
+      .then(setProduto);
+  }, [id]);
+
+  if (!produto) {
+    return <p className="text-center mt-20">Carregando produto...</p>;
+  }
 
   return (
-    <main className=" flex flex-col min-h-screen  bg-gray-50 text-gray-900">
+    <main className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-25 ">
+        {/* Carrossel */}
         <div className="flex justify-center flex-col md:justify-start w-full md:w-[600px] h-[600px]">
           <Carousel>
             <CarouselPrevious className="hover:cursor-pointer" />
@@ -69,13 +84,15 @@ export default async function ProdutoPage({
             </p>
           </div>
 
+          {/* Seletor de quantidade */}
+          <QuantidadeSelector quantidade={1} setQuantidade={() => {}} />
+
           <p className="text-gray-700 mb-6 text-lg leading-relaxed break-words text-justify max-w-lg">
             {produto.descricao}
           </p>
 
           <div className="flex flex-col md:flex-row gap-4">
             <BotaoAdicionarCarrinho produto={produto} />
-
             <BotaoComprarAgora
               produtoNome={produto.nome}
               numeroWhatsApp="5515991950200"

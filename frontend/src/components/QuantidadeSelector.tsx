@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 interface QuantidadeSelectorProps {
   quantidade: number;
   setQuantidade: (q: number) => void;
+  // setQuantidade: number;
 }
 
 export default function QuantidadeSelector({
