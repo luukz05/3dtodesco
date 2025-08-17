@@ -6,7 +6,8 @@ import { cva } from "class-variance-authority";
 import { ChevronDownIcon, ShoppingCart, User, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-
+import { MainNavigation } from "../Navbar";
+import CartIcon from "../CartIcon";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -30,15 +31,100 @@ function NavigationMenu({
           <Image src="/typo.png" alt="Logo" width={130} height={100} priority />
         </Link>
 
-        {/* MENU */}
         <NavigationMenuPrimitive.Root
           data-slot="navigation-menu"
           data-viewport={viewport}
-          className="group/navigation-menu relative flex max-w-max items-center justify-center"
+          className="mx-auto h-18 flex items-center justify-between bg-white px-4"
           {...props}
         >
-          {children}
-          {viewport && <NavigationMenuViewport />}
+          <NavigationMenuList>
+            {/* Menu com submenu */}
+            <NavigationMenuItem className="z-20 ">
+              <NavigationMenuTrigger>Animes</NavigationMenuTrigger>
+              <NavigationMenuContent className="bg-popover rounded-md p-4">
+                <ul className="grid gap-3 md:w-[200px]">
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/produtos/categoria1"
+                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                      >
+                        Naruto
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/produtos/categoria2"
+                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                      >
+                        Dragon Ball
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>Filmes e Séries</NavigationMenuTrigger>
+              <NavigationMenuContent className="bg-popover rounded-md shadow-md p-4">
+                <ul className="grid gap-3 md:w-[200px]">
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/servicos/consultoria"
+                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                      >
+                        Transformers
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/servicos/suporte"
+                        className="block rounded-md px-3 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                      >
+                        Stranger Things
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                >
+                  Personalizados
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                >
+                  Organizadores
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block px-3 py-2 text-sm font-medium hover:text-primary"
+                >
+                  Todos os Produtos
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
         </NavigationMenuPrimitive.Root>
 
         {/* ICONES DE AÇÃO */}
@@ -51,9 +137,9 @@ function NavigationMenu({
             />
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground size-4" />
           </div>
-          <Button variant="ghost" size="icon">
-            <ShoppingCart className="size-5" />
-          </Button>
+          <CartIcon />
+
+          {/* Usuário */}
           <Button variant="ghost" size="icon">
             <User className="size-5" />
           </Button>
@@ -62,10 +148,6 @@ function NavigationMenu({
     </div>
   );
 }
-
-// ------------------------------------
-// Outros componentes do Navigation Menu
-// ------------------------------------
 function NavigationMenuList({
   className,
   ...props
@@ -127,7 +209,7 @@ function NavigationMenuContent({
     <NavigationMenuPrimitive.Content
       data-slot="navigation-menu-content"
       className={cn(
-        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
+        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out mt-10  z-20 data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
         "group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-[state=open]:animate-in group-data-[viewport=false]/navigation-menu:data-[state=closed]:animate-out group-data-[viewport=false]/navigation-menu:data-[state=closed]:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:fade-in-0 group-data-[viewport=false]/navigation-menu:data-[state=closed]:fade-out-0 group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:rounded-md group-data-[viewport=false]/navigation-menu:border group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:duration-200 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
         className
       )}

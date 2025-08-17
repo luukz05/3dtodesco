@@ -10,6 +10,12 @@ import {
 import Image from "next/image";
 import { MainNavigation } from "@/components/Navbar";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import Footer from "@/components/Footer";
+import { TbShoppingCartBolt } from "react-icons/tb";
+
+import { TbShoppingCartPlus } from "react-icons/tb";
+import BotaoComprarAgora from "@/components/ComprarAgora";
+import BotaoAdicionarCarrinho from "@/components/AdicionarCarrinho";
 
 export default async function ProdutoPage({
   params,
@@ -20,12 +26,8 @@ export default async function ProdutoPage({
   const produto = await res.json();
 
   return (
-    <main className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="flex justify-center items-center bg-white shadow-md">
-        <MainNavigation />
-      </nav>
+    <main className=" flex flex-col min-h-screen  bg-gray-50 text-gray-900">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-25 ">
-        {/* Carousel de imagens do produto */}
         <div className="flex justify-center flex-col md:justify-start w-full md:w-[600px] h-[600px]">
           <Carousel>
             <CarouselPrevious className="hover:cursor-pointer" />
@@ -71,9 +73,14 @@ export default async function ProdutoPage({
             {produto.descricao}
           </p>
 
-          <Button className="w-full md:w-auto hover:cursor-pointer">
-            Adicionar ao carrinho
-          </Button>
+          <div className="flex flex-col md:flex-row gap-4">
+            <BotaoAdicionarCarrinho produto={produto} />
+
+            <BotaoComprarAgora
+              produtoNome={produto.nome}
+              numeroWhatsApp="5515991950200"
+            />
+          </div>
         </div>
       </div>
     </main>

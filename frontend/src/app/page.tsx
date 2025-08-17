@@ -34,12 +34,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="flex justify-center items-center bg-white shadow-md">
-        <MainNavigation />
-      </nav>
-      {/* <Sidebar /> */}
-
-      {/* Hero com carrossel */}
       <section className="relative h-[50vh] w-full">
         <BackgroundCarousel />
       </section>
@@ -48,7 +42,7 @@ export default function Home() {
         <h1 className="text-4xl font-medium text-center mb-10 mt-10">
           Destaques
         </h1>
-        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {produtos.map((produto) => (
             <ItemCard
               key={produto._id}
@@ -60,13 +54,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      <footer className="bg-gray-900 text-white py-6 text-center mt-12">
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} 3DTodesco. Todos os direitos
-          reservados.
-        </p>
-      </footer>
     </main>
   );
 }

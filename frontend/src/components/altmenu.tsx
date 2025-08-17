@@ -3,7 +3,7 @@
 import * as React from "react";
 import { MenuIcon, SearchIcon } from "lucide-react";
 import Image from "next/image";
-
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import { ShoppingCart, User, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,7 +65,7 @@ export function Sidebar() {
           <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground size-4" />
         </div>
         <Button variant="ghost" size="icon">
-          <ShoppingCart className="size-5" />
+          <AiOutlineShoppingCart className="size-5" />
         </Button>
         <Button variant="ghost" size="icon">
           <User className="size-5" />
