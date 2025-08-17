@@ -7,10 +7,10 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { TbShoppingCart } from "react-icons/tb";
+import { ImWhatsapp } from "react-icons/im";
 
 import { useCart } from "@/context/CartContext";
 import { RxCross2 } from "react-icons/rx";
-import { toast } from "sonner";
 
 export default function CartIcon() {
   const { carrinho, removerProduto, finalizarCompra } = useCart();
@@ -18,8 +18,12 @@ export default function CartIcon() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <TbShoppingCart className="size-5" />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative hover:cursor-pointer"
+        >
+          <TbShoppingCart className="size-5 " />
           {carrinho.length > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
               {carrinho.length}
@@ -28,35 +32,36 @@ export default function CartIcon() {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[600px] p-4">
+      <PopoverContent className="w-[500px] mr-5 p-4">
         <h3 className="font-bold mb-2 ">Carrinho</h3>
         {carrinho.length === 0 ? (
           <p className="text-center text-gray-500/40">
             Seu carrinho está vazio :(
           </p>
         ) : (
-          <div className="flex flex-col gap-2">
+          <div className="grid gap-2">
             {carrinho.map((item, index) => (
               <div
+                className="grid grid-cols-12 items-center p-2 border-b"
                 key={`${item.id}-${index}`}
-                className="flex justify-between items-center"
               >
-                {/* Nome do produto alinhado à esquerda */}
-                <span className="truncate">{item.nome}</span>
+                {/* Nome do produto ocupa mais espaço */}
+                <p className="col-span-6 text-sm font-semibold">{item.nome}</p>
 
-                {/* Preço sempre alinhado ao centro */}
-                <span className="text-right font-medium">
+                {/* Preço */}
+                <p className="col-span-2 text-sm text-center">
                   R$ {item.preco},00
-                </span>
+                </p>
 
-                <span className="text-right font-medium">
-                  {item.quantidade ?? 0} un.
-                </span>
+                {/* Quantidade */}
+                <p className="col-span-2 text-xs text-right text-black/50">
+                  {item.quantidade} un.
+                </p>
 
-                {/* Botão remover alinhado à direita */}
+                {/* Botão remover */}
                 <Button
                   variant="ghost"
-                  className="text-red-600 hover:text-red-800"
+                  className="col-span-2 text-red-600 hover:text-red-800 justify-self-end"
                   onClick={() => removerProduto(item.id)}
                 >
                   <RxCross2 />
@@ -69,6 +74,7 @@ export default function CartIcon() {
               onClick={finalizarCompra}
             >
               Finalizar no WhatsApp
+              <ImWhatsapp className="size-4" />
             </Button>
           </div>
         )}

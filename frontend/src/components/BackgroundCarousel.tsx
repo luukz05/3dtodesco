@@ -11,7 +11,7 @@ import { useState } from "react";
 const slides = [
   {
     image: "/slide-1.jpg",
-    title: "Bem-vindo à 3DTodesco",
+    title: "Bem-vindo à 3D Todesco",
     description:
       "Aqui nós transformamos suas ideias em realidade com impressões 3D de alta qualidade.",
   },

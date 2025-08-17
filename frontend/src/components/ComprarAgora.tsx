@@ -16,7 +16,7 @@ export default function BotaoComprarAgora({
   quantidade,
 }: BotaoWhatsAppProps) {
   const handleClick = () => {
-    const mensagem = `Olá 3DTodesco! Estou interessado em comprar o produto: ${produtoNome} Quantidade: ${quantidade})`;
+    const mensagem = `Olá 3D Todesco! Estou interessado em comprar o produto: ${produtoNome} - Quantidade: 1 un.`;
     const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(
       mensagem
     )}`;

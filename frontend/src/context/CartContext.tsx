@@ -6,7 +6,7 @@ interface Produto {
   id: string;
   nome: string;
   preco: number;
-  quantidade: number; // novo campo
+  quantidade: number;
 }
 
 interface CartContextProps {
@@ -20,6 +20,7 @@ const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [carrinho, setCarrinho] = useState<Produto[]>([]);
+
   const numeroWhatsApp = "5515991950200"; // Coloque seu número
 
   const adicionarProduto = (produto: Produto) => {
@@ -37,7 +38,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
 
     const mensagem = carrinho
-      .map((p, i) => `\n${i + 1}. ${p.nome} - R$ ${p.preco},00`)
+      .map(
+        (p, i) =>
+          `\n${i + 1}. ${p.nome} - R$ ${p.preco},00 - Quantidade: ${
+            p.quantidade
+          } un.`
+      )
       .join("\n");
 
     const url = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(
