@@ -45,9 +45,9 @@ export default function ProdutoPage({
       <section className="scale-75">
         <Line />
       </section>
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-5 ">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-5 ">
         {/* Carrossel */}
-        <div className="flex justify-center flex-col md:justify-start w-full md:w-[600px] h-[600px]">
+        <div className="flex justify-center flex-col md:w-[600px] h-[600px]">
           <Carousel>
             <CarouselPrevious className="hover:cursor-pointer" />
             <CarouselContent>
@@ -56,7 +56,7 @@ export default function ProdutoPage({
                   imagem: { url: string | StaticImport },
                   i: React.Key | null | undefined
                 ) => (
-                  <CarouselItem key={i} className="w-[100px] h-full">
+                  <CarouselItem key={i} className="w-[2000px] h-full">
                     <AspectRatio
                       ratio={1 / 1}
                       className="bg-muted overflow-hidden w-full h-full"
@@ -163,7 +163,7 @@ export default function ProdutoPage({
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col justify-center md:flex-row gap-4">
             <BotaoAdicionarCarrinho produto={produto} />
             <BotaoComprarAgora
               produtoNome={produto.nome}

@@ -25,7 +25,7 @@ export default function BotaoComprarAgora({
 
   return (
     <Button
-      className="w-50 hover:cursor-pointer bg-sky-600 hover:bg-sky-500 text-white"
+      className="w-1/2 hover:cursor-pointer bg-sky-600 hover:bg-sky-500 text-white"
       onClick={handleClick}
     >
       Comprar agora
