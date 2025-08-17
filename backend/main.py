@@ -137,6 +137,10 @@ def criar_produto():
         descricao = data.get('descricao')
         preco = data.get('preco')
 
+        # Limita a descrição a 255 caracteres
+        if descricao and len(descricao) > 255:
+            descricao = descricao[:255]
+
         # 3. Cria um novo documento e insere no MongoDB
         novo_produto = {
             'nome': nome,

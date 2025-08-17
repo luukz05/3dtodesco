@@ -8,7 +8,7 @@ import { FaDiamond } from "react-icons/fa6";
 
 export default function Line() {
   return (
-    <div className="flex justify-center items-center my-8 w-full">
+    <div className="flex justify-center items-center my-8 w-full select-none">
       <div className="flex flex-row items-center justify-evenly w-full">
         <div className="flex  gap-2">
           <FaTruck className="text-3xl " />

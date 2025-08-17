@@ -17,6 +17,7 @@ import BotaoComprarAgora from "@/components/ComprarAgora";
 import BotaoAdicionarCarrinho from "@/components/AdicionarCarrinho";
 import QuantidadeSelector from "@/components/QuantidadeSelector";
 import React from "react";
+import Line from "@/components/line";
 
 export default function ProdutoPage({
   params,
@@ -41,7 +42,10 @@ export default function ProdutoPage({
 
   return (
     <main className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-25 ">
+      <section className="scale-75">
+        <Line />
+      </section>
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-5 ">
         {/* Carrossel */}
         <div className="flex justify-center flex-col md:justify-start w-full md:w-[600px] h-[600px]">
           <Carousel>
@@ -74,22 +78,57 @@ export default function ProdutoPage({
         </div>
 
         {/* Informações do produto */}
-        <div className="flex flex-col justify-around gap-15 flex-1">
+        <div className="flex flex-col gap-5 flex-1">
           <div>
             <h1 className="text-3xl font-bold leading-tight mb-4">
               {produto.nome}
             </h1>
             <p className="text-2xl font-semibold text-black mb-4">
-              R$ {produto.preco},00
+              R$ {produto.preco},00{" "}
+              <span className="text-sm font-thin text-gray-500">via Pix</span>
             </p>
+            <QuantidadeSelector quantidade={1} setQuantidade={() => {}} />
           </div>
 
           {/* Seletor de quantidade */}
-          <QuantidadeSelector quantidade={1} setQuantidade={() => {}} />
 
-          <p className="text-gray-700 mb-6 text-lg leading-relaxed break-words text-justify max-w-lg">
-            {produto.descricao}
-          </p>
+          <div className="">
+            <p className="text-gray-700 mb-4 text-lg leading-relaxed break-words text-justify max-w-lg ">
+              {produto.descricao}
+            </p>
+            <div className="border border-gray-300 rounded-md overflow-hidden max-w-lg">
+              {/* Cabeçalho */}
+              <div className="bg-gray-100 px-4 py-2 text-gray-800 font-semibold">
+                Especificações Técnicas
+              </div>
+
+              {/* Conteúdo */}
+              <div className="divide-y divide-gray-200">
+                <div className="flex justify-between px-4 py-2">
+                  <span className="font-medium text-gray-600">Largura</span>
+                  <span>X,XX cm</span>
+                </div>
+                <div className="flex justify-between px-4 py-2">
+                  <span className="font-medium text-gray-600">
+                    Profundidade
+                  </span>
+                  <span>X,XX cm</span>
+                </div>
+                <div className="flex justify-between px-4 py-2">
+                  <span className="font-medium text-gray-600">Altura</span>
+                  <span>X,XX cm</span>
+                </div>
+                <div className="flex justify-between px-4 py-2">
+                  <span className="font-medium text-gray-600">Peso</span>
+                  <span>XXX gramas</span>
+                </div>
+                <div className="flex justify-between px-4 py-2">
+                  <span className="font-medium text-gray-600">Material</span>
+                  <span>PLA (Filamento Sólido e GTMax)</span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="flex flex-col md:flex-row gap-4">
             <BotaoAdicionarCarrinho produto={produto} />
