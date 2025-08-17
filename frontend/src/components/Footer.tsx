@@ -26,13 +26,11 @@ export default function Footer() {
               <h3 className="text-white font-semibold mb-2">Institucional</h3>
               <ul className="text-gray-400 text-sm space-y-1">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a
+                    href="/politica-de-privacidade"
+                    className="hover:text-white"
+                  >
                     Política de Privacidade
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white">
-                    Termos de Uso
                   </a>
                 </li>
               </ul>
@@ -46,7 +44,7 @@ export default function Footer() {
               R. Manoel José da Fonseca, 193 - Centro, Sorocaba - SP, 18035-070
             </p>
             <p className="text-gray-400 text-sm">
-              Email: contato@3dtodesco.com.br
+              Email: ti3dtodesco@gmail.com
             </p>
             <p className="text-gray-400 text-sm">Telefone: (15) 99195-0200</p>
 

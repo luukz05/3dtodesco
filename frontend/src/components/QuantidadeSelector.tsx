@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface QuantidadeSelectorProps {
   quantidade: number;
@@ -7,12 +8,13 @@ interface QuantidadeSelectorProps {
 }
 
 export default function QuantidadeSelector({
-  quantidade,
+  quantidade = 1,
   setQuantidade,
 }: QuantidadeSelectorProps) {
   return (
     <div className="flex items-center text-center justify-between gap-3 flex-row">
       <div className="flex items-center gap-3">
+        <p className="text-sm text-gray-500">Quantidade: </p>
         <Button
           variant="outline"
           className="w-9 h-9 text-lg text-center hover:cursor-pointer"

@@ -15,7 +15,7 @@ export default function BotaoAdicionarCarrinho({
   const { adicionarProduto } = useCart();
 
   const handleClick = () => {
-    adicionarProduto(produto);
+    adicionarProduto(produto, produto.quantidade); // <-- aqui
     toast("Produto adicionado!", {
       description: produto.nome,
       duration: 2000,

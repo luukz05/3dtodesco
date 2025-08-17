@@ -28,6 +28,7 @@ export default function ProdutoPage({
   const { id } = use(params);
 
   // Aqui já pode usar o id normalmente
+  const [quantidade, setQuantidade] = useState(1);
   const [produto, setProduto] = React.useState<any>(null);
 
   React.useEffect(() => {
@@ -47,7 +48,7 @@ export default function ProdutoPage({
       </section>
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-5 ">
         {/* Carrossel */}
-        <div className="flex justify-center flex-col md:w-[600px] h-[600px]">
+        <div className="flex justify-center flex-col md:w-[600px] h-full">
           <Carousel>
             <CarouselPrevious className="hover:cursor-pointer" />
             <CarouselContent>
@@ -82,7 +83,7 @@ export default function ProdutoPage({
         </div>
 
         {/* Informações do produto */}
-        <div className="flex flex-col gap-5 flex-1">
+        <div className="flex h-full w-full flex-col gap-5 flex-1">
           <div>
             <h1 className="text-3xl font-bold leading-tight mb-4">
               {produto.nome}
@@ -96,7 +97,11 @@ export default function ProdutoPage({
                 Categoria: <Badge>{produto.categoria}</Badge>
               </p>
             </div>
-            <QuantidadeSelector quantidade={1} setQuantidade={() => {}} />
+
+            <QuantidadeSelector
+              quantidade={quantidade}
+              setQuantidade={setQuantidade}
+            />
           </div>
 
           {/* Seletor de quantidade */}
@@ -164,7 +169,7 @@ export default function ProdutoPage({
           </div>
 
           <div className="flex flex-col justify-center md:flex-row gap-4">
-            <BotaoAdicionarCarrinho produto={produto} />
+            <BotaoAdicionarCarrinho produto={{ ...produto, quantidade }} />
             <BotaoComprarAgora
               produtoNome={produto.nome}
               numeroWhatsApp="5515991950200"

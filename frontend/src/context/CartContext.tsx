@@ -15,10 +15,10 @@ interface ProdutoNoCarrinho extends Produto {
 
 interface CartContextProps {
   carrinho: ProdutoNoCarrinho[];
-  adicionarProduto: (produto: Produto) => void;
+  adicionarProduto: (produto: Produto, quantidade?: number) => void; // <- aqui
   removerProduto: (cartItemId: string) => void;
   finalizarCompra: () => void;
-  limparCarrinho: () => void; // nome unificado
+  limparCarrinho: () => void;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -27,11 +27,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [carrinho, setCarrinho] = useState<ProdutoNoCarrinho[]>([]);
   const numeroWhatsApp = "5515991950200";
 
-  const adicionarProduto = (produto: Produto) => {
-    setCarrinho((prev) => [
-      ...prev,
-      { ...produto, cartItemId: crypto.randomUUID(), quantidade: 1 },
-    ]);
+  const adicionarProduto = (produto: Produto, quantidade: number = 1) => {
+    setCarrinho((prev) => {
+      // verifica se já existe esse produto
+      const existente = prev.find((p) => p.id === produto.id);
+
+      if (existente) {
+        return prev.map((p) =>
+          p.id === produto.id
+            ? { ...p, quantidade: p.quantidade + quantidade }
+            : p
+        );
+      }
+
+      // se não existe, adiciona novo
+      return [
+        ...prev,
+        { ...produto, cartItemId: crypto.randomUUID(), quantidade },
+      ];
+    });
   };
 
   const removerProduto = (cartItemId: string) => {
