@@ -21,9 +21,12 @@ export default function ItemCard({
 }: ItemCardProps) {
   return (
     <Link href={`/produto/${id}`} className="group">
-      <Card className=" hover:scale-[1.02] transition-transform duration-300 ease-in-out hover:cursor-pointer">
+      <Card className=" hover:scale-[1.02]  transition-transform duration-300 ease-in-out hover:cursor-pointer">
         <CardContent>
-          <AspectRatio ratio={1 / 1} className="bg-muted overflow-hidden">
+          <AspectRatio
+            ratio={1 / 1}
+            className="bg-muted overflow-hidden rounded-sm"
+          >
             <Image
               src={imagem}
               alt={nome}
@@ -32,7 +35,7 @@ export default function ItemCard({
             />
           </AspectRatio>
 
-          <div className="flex justify-between mt-2">
+          <div className="flex justify-between mt-2 rounded-xs">
             <h3 className="text-base font-thin text-gray-900 truncate">
               {produto?.nome || nome}
             </h3>

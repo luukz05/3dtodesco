@@ -129,6 +129,16 @@ export default function ProdutoPage({
                   </span>
                 </div>
                 <div className="flex justify-between px-4 py-2">
+                  <span className="font-medium text-gray-600">Altura</span>
+                  <span>
+                    {produto.altura?.toLocaleString("pt-BR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    }) || "—"}{" "}
+                    cm
+                  </span>
+                </div>
+                <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">
                     Profundidade
                   </span>
@@ -140,16 +150,7 @@ export default function ProdutoPage({
                     cm
                   </span>
                 </div>
-                <div className="flex justify-between px-4 py-2">
-                  <span className="font-medium text-gray-600">Altura</span>
-                  <span>
-                    {produto.altura?.toLocaleString("pt-BR", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    }) || "—"}{" "}
-                    cm
-                  </span>
-                </div>
+
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Peso</span>
                   <span>

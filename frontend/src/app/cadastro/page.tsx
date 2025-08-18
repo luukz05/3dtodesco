@@ -17,7 +17,7 @@ export default function CadastroProdutoForm() {
     material: "",
   });
 
-  const [imagem, setImagem] = useState<File | null>(null);
+  const [imagens, setImagens] = useState<File[]>([]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -31,7 +31,8 @@ export default function CadastroProdutoForm() {
 
     const formData = new FormData();
     Object.entries(form).forEach(([key, value]) => formData.append(key, value));
-    if (imagem) formData.append("imagens", imagem);
+
+    imagens.forEach((file) => formData.append("imagens", file));
 
     try {
       const res = await fetch("http://127.0.0.1:5000/api/produtos", {
@@ -54,7 +55,7 @@ export default function CadastroProdutoForm() {
         categoria: "",
         material: "",
       });
-      setImagem(null);
+      setImagens([]);
     } catch (err) {
       console.error(err);
       alert("Erro ao cadastrar produto");
@@ -81,6 +82,7 @@ export default function CadastroProdutoForm() {
         value={form.descricao}
         onChange={handleChange}
         required
+        maxLength={255}
         className="border p-2 rounded"
       />
       <input
@@ -95,7 +97,10 @@ export default function CadastroProdutoForm() {
       <input
         type="file"
         name="imagens"
-        onChange={(e) => e.target.files && setImagem(e.target.files[0])}
+        multiple
+        onChange={(e) =>
+          e.target.files && setImagens(Array.from(e.target.files))
+        }
         className="border p-2 rounded"
         required
       />
