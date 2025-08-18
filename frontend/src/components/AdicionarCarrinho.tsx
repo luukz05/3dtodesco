@@ -6,7 +6,7 @@ import { TbShoppingCartPlus } from "react-icons/tb";
 import { useCart } from "@/context/CartContext";
 
 interface BotaoAdicionarCarrinhoProps {
-  produto: { id: string; nome: string; preco: number; quantidade: number };
+  produto: { _id: string; nome: string; preco: number; quantidade: number };
 }
 
 export default function BotaoAdicionarCarrinho({
@@ -15,7 +15,7 @@ export default function BotaoAdicionarCarrinho({
   const { adicionarProduto } = useCart();
 
   const handleClick = () => {
-    adicionarProduto(produto, produto.quantidade); // <-- aqui
+    adicionarProduto(produto, produto.quantidade); // não passa produto.quantidade
     toast("Produto adicionado!", {
       description: produto.nome,
       duration: 2000,

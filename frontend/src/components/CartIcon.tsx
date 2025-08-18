@@ -45,7 +45,7 @@ export default function CartIcon() {
             {carrinho.map((item, index) => (
               <div
                 className="grid grid-cols-12 items-center p-2 border-b"
-                key={`${item.id}-${index}`}
+                key={`${item._id}-${index}`}
               >
                 {/* Nome do produto ocupa mais espaço */}
                 <p className="col-span-6 text-sm font-semibold">{item.nome}</p>

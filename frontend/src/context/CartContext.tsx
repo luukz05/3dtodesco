@@ -3,7 +3,7 @@
 import { createContext, useContext, ReactNode, useState } from "react";
 
 interface Produto {
-  id: string;
+  _id: string;
   nome: string;
   preco: number;
 }
@@ -28,23 +28,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const numeroWhatsApp = "5515991950200";
 
   const adicionarProduto = (produto: Produto, quantidade: number = 1) => {
+    console.log("Adicionando:", produto); // 👈 veja se o id muda
     setCarrinho((prev) => {
-      // verifica se já existe esse produto
-      const existente = prev.find((p) => p.id === produto.id);
+      const existente = prev.find((p) => p._id === produto._id);
 
       if (existente) {
         return prev.map((p) =>
-          p.id === produto.id
+          p._id === produto._id
             ? { ...p, quantidade: p.quantidade + quantidade }
             : p
         );
+      } else {
+        return [
+          ...prev,
+          { ...produto, cartItemId: crypto.randomUUID(), quantidade },
+        ];
       }
-
-      // se não existe, adiciona novo
-      return [
-        ...prev,
-        { ...produto, cartItemId: crypto.randomUUID(), quantidade },
-      ];
     });
   };
 

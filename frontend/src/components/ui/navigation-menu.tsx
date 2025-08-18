@@ -12,9 +12,6 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-// ------------------------------------
-// Navigation Menu Root
-// ------------------------------------
 function NavigationMenu({
   className,
   children,
@@ -26,7 +23,6 @@ function NavigationMenu({
   return (
     <div className={cn("w-full border-b bg-background", className)}>
       <div className="mx-auto flex items-center justify-between w-full px-4 py-2 gap-4 ">
-        {/* LOGO */}
         <Link href={"/"} className="flex items-center gap-2">
           <Image src="/typo.png" alt="Logo" width={130} height={100} priority />
         </Link>
@@ -70,6 +66,18 @@ function NavigationMenu({
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/"
+                  className="block font-thin px-3 py-2 text-sm  hover:text-primary"
+                >
+                  Decorativos
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
@@ -80,6 +88,7 @@ function NavigationMenu({
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
@@ -87,16 +96,6 @@ function NavigationMenu({
                   className="block px-3 py-2 text-sm font-thin hover:text-primary"
                 >
                   Organizadores
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link
-                  href="/"
-                  className="block px-3 py-2 text-sm font-thin hover:text-primary"
-                >
-                  Todos os Produtos
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
