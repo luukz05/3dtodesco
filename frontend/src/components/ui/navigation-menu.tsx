@@ -9,8 +9,7 @@ import Link from "next/link";
 import { MainNavigation } from "../Navbar";
 import CartIcon from "../CartIcon";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import BotaoPersonalizado from "../ComprarPersonalizado";
 
 function NavigationMenu({
   className,
@@ -37,7 +36,7 @@ function NavigationMenu({
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
-                  href="/"
+                  href="/produtos/games"
                   className="block font-thin px-3 py-2 text-sm  hover:text-primary"
                 >
                   Games
@@ -48,7 +47,7 @@ function NavigationMenu({
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
-                  href="/"
+                  href="/produtos/animes"
                   className="block px-3 py-2 text-sm font-thin hover:text-primary"
                 >
                   Animes
@@ -59,7 +58,7 @@ function NavigationMenu({
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
-                  href="/"
+                  href="/produtos/filmes-e-series"
                   className="block px-3 py-2 text-sm font-thin hover:text-primary"
                 >
                   Filmes e Séries
@@ -70,14 +69,23 @@ function NavigationMenu({
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
-                  href="/"
+                  href="/produtos/decorativos"
                   className="block font-thin px-3 py-2 text-sm  hover:text-primary"
                 >
                   Decorativos
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/produtos/organizadores"
+                  className="block px-3 py-2 text-sm font-thin hover:text-primary"
+                >
+                  Organizadores
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
@@ -88,30 +96,19 @@ function NavigationMenu({
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link
-                  href="/"
-                  className="block px-3 py-2 text-sm font-thin hover:text-primary"
-                >
-                  Organizadores
-                </Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenuPrimitive.Root>
 
         {/* ICONES DE AÇÃO */}
         <div className="flex items-center gap-4">
-          <div className="relative w-full">
+          {/* <div className="relative w-full">
             <Input
               type="text"
               placeholder="Buscar..."
               className="pl-9 pr-4 w-36"
             />
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground size-4" />
-          </div>
+          </div> */}
           <CartIcon />
 
           {/* Usuário */}

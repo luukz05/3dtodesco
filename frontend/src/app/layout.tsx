@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>
+      <body className="bg-gray-50">
         <CartProvider>
           <NavigationMenu />
           {children}

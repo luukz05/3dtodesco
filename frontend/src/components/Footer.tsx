@@ -50,7 +50,7 @@ export default function Footer() {
 
             <div className="flex mt-4 space-x-4">
               <a
-                href="https://www.facebook.com/gtodescoo/"
+                href="https://www.facebook.com/3d.todesco"
                 className="text-gray-400 hover:text-white"
               >
                 <FaFacebookF />
@@ -76,8 +76,8 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="mt-8 border-t border-gray-700 pt-6 text-center text-gray-400 text-sm">
-          &copy; {new Date().getFullYear()} 3D Todesco. Todos os direitos
-          reservados.
+          GUSTAVO TODESCO MEIRA - CNPJ 61.435.154/0001-09 &copy;{" "}
+          {new Date().getFullYear()} 3D Todesco. Todos os direitos reservados.
         </div>
       </div>
     </footer>

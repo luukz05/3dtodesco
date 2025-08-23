@@ -116,6 +116,26 @@ def obter_produto(id):
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/api/produtos/categoria/<categoria>', methods=['GET'])
+def obter_produtos_por_categoria(categoria):
+    try:
+        # Busca case-insensitive usando regex
+        produtos = list(produtos_collection.find({
+            'categoria': {'$regex': f'^{categoria}$', '$options': 'i'}
+        }))
+
+        if produtos:
+            for produto in produtos:
+                produto['_id'] = str(produto['_id'])
+            return jsonify(produtos), 200
+        else:
+            return jsonify({'message': 'Nenhum produto encontrado nessa categoria'}), 404
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
 # Rota para criar um novo produto com uma imagem
 @app.route('/api/produtos', methods=['POST'])
 def criar_produto():

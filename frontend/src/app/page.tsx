@@ -51,7 +51,7 @@ export default function Home() {
       <Line />
       <section>
         <h1 className="text-4xl font-medium text-center mb-10 mt-10">
-          Destaques
+          Destaque do Mês
         </h1>
         <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {produtos.map((produto) => (
