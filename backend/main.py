@@ -140,22 +140,21 @@ def obter_produtos_por_categoria(categoria):
 @app.route('/api/produtos', methods=['POST'])
 def criar_produto():
     try:
-        # 1. Verifica se há imagens no request.files
+        # 1. Verifica se há imagens
         if 'imagens' not in request.files:
             return jsonify({'error': 'Nenhum arquivo de imagem enviado'}), 400
 
-        imagens = request.files.getlist('imagens')  # pega todas as imagens enviadas
+        imagens = request.files.getlist('imagens')
         url_imagens = []
 
-        # Faz upload de cada imagem e salva as URLs no array
         for imagem in imagens:
             resultado_cloudinary = cloudinary.uploader.upload(imagem)
             url_imagens.append({
                 "url": resultado_cloudinary['secure_url'],
-                "origem": "upload"  # você pode mudar isso futuramente (ex: 'importado', 'gerado', etc.)
+                "origem": "upload"
             })
 
-        # 2. Pega os outros dados do produto do corpo da requisição
+        # 2. Dados do produto
         data = request.form
         nome = data.get('nome')
         descricao = data.get('descricao')
@@ -166,14 +165,18 @@ def criar_produto():
         profundidade = data.get('profundidade')
         peso = data.get('peso')
         material = data.get('material')
-        origem = data.get('origem')  # origem geral do produto
+        origem = data.get('origem')
         categoria = data.get("categoria")
+        subcategoria = data.get("subcategoria")  # <- novo campo
 
-        # Limita a descrição a 255 caracteres
+        # "destaque" vem como string "true" ou "false"
+        destaque = data.get("destaque", "false").lower() in ["true", "1", "yes"]
+
+        # Limita a descrição
         if descricao and len(descricao) > 255:
             descricao = descricao[:255]
 
-        # 3. Cria um novo documento e insere no MongoDB
+        # 3. Monta documento
         novo_produto = {
             'nome': nome,
             'descricao': descricao,
@@ -184,8 +187,10 @@ def criar_produto():
             'peso': float(peso) if peso else None,
             'material': material,
             'origem': origem,
-            'imagens': url_imagens,  # lista de objetos com {url, origem}
-            "categoria":categoria
+            'categoria': categoria,
+            'subcategoria': subcategoria,   # <- novo
+            'destaque': destaque,           # <- novo (boolean)
+            'imagens': url_imagens
         }
 
         resultado_insercao = produtos_collection.insert_one(novo_produto)

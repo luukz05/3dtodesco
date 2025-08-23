@@ -13,24 +13,33 @@ export default function CadastroProdutoForm() {
     profundidade: "",
     peso: "",
     origem: "",
-    categoria: "",
+    categoria: "", // ✅ já no form
+    subcategoria: "",
     material: "",
+    destaque: false,
   });
 
   const [imagens, setImagens] = useState<File[]>([]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target as HTMLInputElement;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
-    Object.entries(form).forEach(([key, value]) => formData.append(key, value));
+    Object.entries(form).forEach(([key, value]) =>
+      formData.append(key, String(value))
+    );
 
     imagens.forEach((file) => formData.append("imagens", file));
 
@@ -53,7 +62,9 @@ export default function CadastroProdutoForm() {
         peso: "",
         origem: "",
         categoria: "",
+        subcategoria: "",
         material: "",
+        destaque: false,
       });
       setImagens([]);
     } catch (err) {
@@ -144,11 +155,30 @@ export default function CadastroProdutoForm() {
         onChange={handleChange}
         className="border p-2 rounded"
       />
+
+      {/* Categoria (fixa) */}
+      <label className="block mb-2">Categoria</label>
+      <select
+        name="categoria" // ✅ agora faz parte do form
+        value={form.categoria}
+        onChange={handleChange}
+        className="w-full border rounded p-2 mb-4"
+        required
+      >
+        <option value="">Selecione uma categoria</option>
+        <option value="Games">Games</option>
+        <option value="Animes">Animes</option>
+        <option value="Filmes e Séries">Filmes e Séries</option>
+        <option value="Decorativos">Decorativos</option>
+        <option value="Organizadores">Organizadores</option>
+      </select>
+
+      {/* Subcategoria (livre) */}
       <input
         type="text"
-        name="categoria"
-        placeholder="Categoria"
-        value={form.categoria}
+        name="subcategoria"
+        placeholder="Subcategoria"
+        value={form.subcategoria}
         onChange={handleChange}
         className="border p-2 rounded"
       />
@@ -160,6 +190,18 @@ export default function CadastroProdutoForm() {
         onChange={handleChange}
         className="border p-2 rounded"
       />
+
+      {/* Checkbox destaque */}
+      <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          name="destaque"
+          checked={form.destaque}
+          onChange={handleChange}
+          className="w-4 h-4"
+        />
+        <span>Produto em destaque</span>
+      </label>
 
       <Button type="submit" className="bg-blue-600 text-white">
         Cadastrar Produto

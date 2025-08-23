@@ -88,12 +88,7 @@ function NavigationMenu({
             </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
-                <Link
-                  href="/"
-                  className="block px-3 py-2 text-sm font-thin hover:text-primary"
-                >
-                  Personalizados
-                </Link>
+                <BotaoPersonalizado numeroWhatsApp="5515991950200" />
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>

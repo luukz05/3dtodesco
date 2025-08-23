@@ -24,6 +24,7 @@ type Produto = {
   material?: string;
   origem?: string;
   imagens: ImagemProduto[]; // array de objetos com url e origem
+  destaque: boolean;
 };
 
 export default function Home() {
@@ -43,15 +44,40 @@ export default function Home() {
     fetchProdutos();
   }, []);
 
+  const produtosDestaque = produtos.filter((p) => p.destaque);
+
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
       <section className="relative h-[50vh] w-full">
         <BackgroundCarousel />
       </section>
       <Line />
+      {/* Produtos em Destaque */}
       <section>
         <h1 className="text-4xl font-medium text-center mb-10 mt-10">
-          Destaque do Mês
+          Produtos em Destaque
+        </h1>
+        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4">
+          {produtosDestaque.length > 0 ? (
+            produtosDestaque.map((produto) => (
+              <ItemCard
+                key={produto._id}
+                id={produto._id}
+                imagem={produto?.imagens?.[0]?.url}
+                preco={produto.preco}
+                nome={produto.nome}
+              />
+            ))
+          ) : (
+            <p className="text-center col-span-full text-gray-500">
+              Nenhum produto em destaque no momento.
+            </p>
+          )}
+        </div>
+      </section>
+      <section className="mb-10">
+        <h1 className="text-4xl font-medium text-center mb-10 mt-10">
+          Todos os produtos
         </h1>
         <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {produtos.map((produto) => (

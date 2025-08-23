@@ -94,7 +94,15 @@ export default function ProdutoPage({
                 <span className="text-sm font-thin text-gray-500">via Pix</span>
               </p>
               <p>
-                Categoria: <Badge>{produto.categoria}</Badge>
+                <Badge>
+                  {produto.categoria === "filmes-e-series"
+                    ? "Filmes e Séries"
+                    : produto.categoria.charAt(0).toUpperCase() +
+                      produto.categoria.slice(1)}
+                </Badge>
+              </p>
+              <p>
+                <Badge className="bg-sky-700">{produto.subcategoria}</Badge>
               </p>
             </div>
 
