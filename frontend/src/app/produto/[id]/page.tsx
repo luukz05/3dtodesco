@@ -60,7 +60,7 @@ export default function ProdutoPage({
                   <CarouselItem key={i} className="w-[2000px] h-full">
                     <AspectRatio
                       ratio={1 / 1}
-                      className="bg-muted overflow-hidden w-full h-full"
+                      className="bg-muted overflow-hidden w-full h-full rounded-sm"
                     >
                       <Image
                         src={imagem.url} // pegando a url do objeto
@@ -78,7 +78,7 @@ export default function ProdutoPage({
             <CarouselNext className="hover:cursor-pointer" />
           </Carousel>
           <p className="text-xs text-center my-2">
-            Imagens via <span className=" font-semibold">{produto.origem}</span>
+            Imagens: <span className=" font-semibold">{produto.origem}</span>
           </p>
         </div>
 
@@ -93,17 +93,15 @@ export default function ProdutoPage({
                 R$ {produto.preco},00{" "}
                 <span className="text-sm font-thin text-gray-500">via Pix</span>
               </p>
-              <p>
+              <div className="flex flex-row gap-2">
                 <Badge>
                   {produto.categoria === "filmes-e-series"
                     ? "Filmes e Séries"
                     : produto.categoria.charAt(0).toUpperCase() +
                       produto.categoria.slice(1)}
                 </Badge>
-              </p>
-              <p>
-                <Badge className="bg-sky-700">{produto.subcategoria}</Badge>
-              </p>
+                <Badge>{produto.subcategoria}</Badge>
+              </div>
             </div>
 
             <QuantidadeSelector

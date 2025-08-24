@@ -177,19 +177,20 @@ def criar_produto():
             descricao = descricao[:255]
 
         # 3. Monta documento
+        # 3. Monta documento
         novo_produto = {
             'nome': nome,
             'descricao': descricao,
             'preco': float(preco) if preco else 0.0,
-            'altura': float(altura) if altura else None,
-            'largura': float(largura) if largura else None,
-            'profundidade': float(profundidade) if profundidade else None,
-            'peso': float(peso) if peso else None,
-            'material': material,
+            'altura': float(altura) if altura else "N/A",
+            'largura': float(largura) if largura else "N/A",
+            'profundidade': float(profundidade) if profundidade else "N/A",
+            'peso': float(peso) if peso else "N/A",
+            'material': material if material else "N/A",
             'origem': origem,
             'categoria': categoria,
-            'subcategoria': subcategoria,   # <- novo
-            'destaque': destaque,           # <- novo (boolean)
+            'subcategoria': subcategoria,  # <- novo
+            'destaque': destaque,  # <- novo (boolean)
             'imagens': url_imagens
         }
 

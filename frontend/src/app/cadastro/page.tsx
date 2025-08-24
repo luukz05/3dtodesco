@@ -150,7 +150,7 @@ export default function CadastroProdutoForm() {
       <input
         type="text"
         name="origem"
-        placeholder="Origem"
+        placeholder="Origem da Imagem"
         value={form.origem}
         onChange={handleChange}
         className="border p-2 rounded"
