@@ -1,12 +1,11 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Pagination, Navigation } from "swiper/modules"; // <- Navigation importado
+import { Autoplay, EffectFade, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
-import "swiper/css/navigation"; // <- CSS da navegação
-import { useState } from "react";
+import "swiper/css/navigation";
 
 const slides = [
   {
@@ -27,26 +26,25 @@ export default function BackgroundCarousel() {
   return (
     <div className="absolute inset-0 z-0">
       <Swiper
-        modules={[Autoplay, EffectFade, Pagination, Navigation]} // <- Adicionado Navigation
+        modules={[Autoplay, EffectFade, Pagination, Navigation]}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         effect="fade"
         loop={true}
         allowTouchMove={false}
         pagination={{ clickable: true }}
-        // navigation
         className="h-full w-full"
       >
         {slides.map((slide, i) => (
           <SwiperSlide key={i}>
             <div
-              className="h-full w-full bg-cover bg-center flex items-center"
+              className="h-full w-full bg-cover bg-center flex items-center justify-center sm:justify-start"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className="text-white text-center px-4 ml-40">
-                <h1 className="text-4xl md:text-6xl font-bold mb-4 drop- select-none">
+              <div className="text-white text-center sm:text-left px-4 sm:ml-20 max-w-lg">
+                <h1 className="text-2xl sm:text-4xl md:text-6xl font-bold mb-3 sm:mb-4 drop-shadow-lg select-none">
                   {slide.title}
                 </h1>
-                <p className="text-lg md:text-xl max-w-xl mx-auto drop- select-none">
+                <p className="text-sm sm:text-lg md:text-xl drop-shadow-md select-none">
                   {slide.description}
                 </p>
               </div>
@@ -58,11 +56,11 @@ export default function BackgroundCarousel() {
       {/* Overlay escuro */}
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-      {/* Custom pagination bullets */}
+      {/* Custom pagination + navigation */}
       <style jsx global>{`
         .swiper-pagination-bullet {
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
           background-color: white;
           opacity: 0.5;
           border-radius: 9999px;
@@ -75,15 +73,14 @@ export default function BackgroundCarousel() {
           transform: scale(1.3);
         }
 
-        /* Estilo das setas */
         .swiper-button-next,
         .swiper-button-prev {
           color: white;
-          width: 44px;
-          height: 44px;
+          width: 36px;
+          height: 36px;
           background-color: rgba(0, 0, 0, 0.3);
           border-radius: 50%;
-          padding: 10px;
+          padding: 6px;
         }
 
         .swiper-button-next:hover,

@@ -23,7 +23,7 @@ type Produto = {
   peso?: number;
   material?: string;
   origem?: string;
-  imagens: ImagemProduto[]; // array de objetos com url e origem
+  imagens: ImagemProduto[];
   destaque: boolean;
 };
 
@@ -50,16 +50,19 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gray-50 text-gray-900">
-      <section className="relative h-[50vh] w-full">
+      {/* Hero / Carousel */}
+      <section className="relative h-[40vh] sm:h-[50vh] w-full">
         <BackgroundCarousel />
       </section>
+
       <Line />
+
       {/* Produtos em Destaque */}
-      <section>
-        <h1 className="text-4xl font-medium text-center mb-10 mt-10">
+      <section className="px-4 sm:px-6 lg:px-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center mb-6 sm:mb-10 mt-8 sm:mt-12">
           Produtos em Destaque
         </h1>
-        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-4">
+        <div className="max-w-7xl mx-auto grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {produtosDestaque.length > 0 ? (
             produtosDestaque.map((produto) => (
               <ItemCard
@@ -77,16 +80,18 @@ export default function Home() {
           )}
         </div>
       </section>
-      <section className="mb-10">
-        <h1 className="text-4xl font-medium text-center mb-10 mt-10">
+
+      {/* Todos os produtos */}
+      <section className="px-4 sm:px-6 lg:px-8 mb-10">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-center mb-6 sm:mb-10 mt-8 sm:mt-12">
           Todos os produtos
         </h1>
-        <div className="max-w-7xl mx-auto grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
+        <div className="max-w-7xl mx-auto grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {produtos.map((produto) => (
             <ItemCard
               key={produto._id}
               id={produto._id}
-              imagem={produto?.imagens?.[0]?.url} // <- aqui pegamos a URL da primeira imagem
+              imagem={produto?.imagens?.[0]?.url}
               preco={produto.preco}
               nome={produto.nome}
             />

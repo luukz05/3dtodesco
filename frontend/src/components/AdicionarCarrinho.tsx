@@ -23,7 +23,10 @@ export default function BotaoAdicionarCarrinho({
   };
 
   return (
-    <Button className="w-1/2 hover:cursor-pointer" onClick={handleClick}>
+    <Button
+      className="w-full md:w-1/2 hover:cursor-pointer"
+      onClick={handleClick}
+    >
       Adicionar ao carrinho
       <TbShoppingCartPlus className="size-5" />
     </Button>

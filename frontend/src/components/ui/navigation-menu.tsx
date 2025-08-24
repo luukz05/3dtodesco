@@ -3,12 +3,18 @@
 import * as React from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { cva } from "class-variance-authority";
-import { ChevronDownIcon, ShoppingCart, User, Search } from "lucide-react";
+import {
+  ChevronDownIcon,
+  ShoppingCart,
+  User,
+  Search,
+  Menu,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MainNavigation } from "../Navbar";
-import CartIcon from "../CartIcon";
 import { cn } from "@/lib/utils";
+import CartIcon from "../CartIcon";
 import BotaoPersonalizado from "../ComprarPersonalizado";
 
 function NavigationMenu({
@@ -19,17 +25,21 @@ function NavigationMenu({
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Root> & {
   viewport?: boolean;
 }) {
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
   return (
     <div className={cn("w-full border-b bg-background", className)}>
-      <div className="mx-auto flex items-center justify-between w-full px-4 py-2 gap-4 ">
+      <div className="mx-auto flex items-center justify-between w-full px-4 py-2 gap-4">
+        {/* LOGO */}
         <Link href={"/"} className="flex items-center gap-2">
-          <Image src="/typo.png" alt="Logo" width={130} height={100} priority />
+          <Image src="/typo.png" alt="Logo" width={120} height={80} priority />
         </Link>
 
+        {/* MENU DESKTOP (Radix intacto) */}
         <NavigationMenuPrimitive.Root
           data-slot="navigation-menu"
           data-viewport={viewport}
-          className="mx-auto h-18 flex items-center justify-between bg-white px-4 "
+          className="hidden md:flex h-18 items-center justify-between bg-white px-4"
           {...props}
         >
           <NavigationMenuList>
@@ -37,13 +47,12 @@ function NavigationMenu({
               <NavigationMenuLink asChild>
                 <Link
                   href="/produtos/games"
-                  className="block font-thin px-3 py-2 text-sm  hover:text-primary"
+                  className="block font-thin px-3 py-2 text-sm hover:text-primary"
                 >
                   Games
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
@@ -54,7 +63,6 @@ function NavigationMenu({
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
@@ -65,12 +73,11 @@ function NavigationMenu({
                 </Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
                   href="/produtos/decorativos"
-                  className="block font-thin px-3 py-2 text-sm  hover:text-primary"
+                  className="block font-thin px-3 py-2 text-sm hover:text-primary"
                 >
                   Decorativos
                 </Link>
@@ -92,29 +99,58 @@ function NavigationMenu({
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
+
+          {/* Mantém viewport/indicator para animações do Radix */}
+          <NavigationMenuViewport />
         </NavigationMenuPrimitive.Root>
 
-        {/* ICONES DE AÇÃO */}
+        {/* ICONES + MENU MOBILE */}
         <div className="flex items-center gap-4">
-          {/* <div className="relative w-full">
-            <Input
-              type="text"
-              placeholder="Buscar..."
-              className="pl-9 pr-4 w-36"
-            />
-            <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground size-4" />
-          </div> */}
           <CartIcon />
+          <button
+            className="md:hidden p-2 rounded hover:bg-gray-100"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
 
-          {/* Usuário */}
-          {/* <Button variant="ghost" size="icon">
-            <User className="size-5" />
-          </Button> */}
+      {/* MENU MOBILE DROPDOWN (simples, mas animado com Tailwind) */}
+      <div
+        className={cn(
+          "md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out bg-white border-t shadow-sm",
+          mobileOpen ? "max-h-96" : "max-h-0"
+        )}
+      >
+        <div className="flex flex-col gap-3 px-4 py-3">
+          <Link href="/produtos/games" className="text-sm font-thin">
+            Games
+          </Link>
+          <Link href="/produtos/animes" className="text-sm font-thin">
+            Animes
+          </Link>
+          <Link href="/produtos/filmes-e-series" className="text-sm font-thin">
+            Filmes e Séries
+          </Link>
+          <Link href="/produtos/decorativos" className="text-sm font-thin">
+            Decorativos
+          </Link>
+          <Link href="/produtos/organizadores" className="text-sm font-thin">
+            Organizadores
+          </Link>
+          <BotaoPersonalizado numeroWhatsApp="5515991950200" />
         </div>
       </div>
     </div>
   );
 }
+
+/* Mantém helpers originais para Radix */
 function NavigationMenuList({
   className,
   ...props
@@ -138,7 +174,7 @@ function NavigationMenuItem({
   return (
     <NavigationMenuPrimitive.Item
       data-slot="navigation-menu-item"
-      className={cn("relative ", className)}
+      className={cn("relative", className)}
       {...props}
     />
   );
@@ -176,8 +212,8 @@ function NavigationMenuContent({
     <NavigationMenuPrimitive.Content
       data-slot="navigation-menu-content"
       className={cn(
-        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out mt-10  z-20 data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
-        "group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-[state=open]:animate-in group-data-[viewport=false]/navigation-menu:data-[state=closed]:animate-out group-data-[viewport=false]/navigation-menu:data-[state=closed]:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:fade-in-0 group-data-[viewport=false]/navigation-menu:data-[state=closed]:fade-out-0 group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:rounded-md group-data-[viewport=false]/navigation-menu:border group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:duration-200 **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none",
+        "data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out mt-10 z-20 data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 top-0 left-0 w-full p-2 pr-2.5 md:absolute md:w-auto",
+        "group-data-[viewport=false]/navigation-menu:bg-popover group-data-[viewport=false]/navigation-menu:text-popover-foreground group-data-[viewport=false]/navigation-menu:data-[state=open]:animate-in group-data-[viewport=false]/navigation-menu:data-[state=closed]:animate-out group-data-[viewport=false]/navigation-menu:data-[state=closed]:zoom-out-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:zoom-in-95 group-data-[viewport=false]/navigation-menu:data-[state=open]:fade-in-0 group-data-[viewport=false]/navigation-menu:data-[state=closed]:fade-out-0 group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden group-data-[viewport=false]/navigation-menu:rounded-md group-data-[viewport=false]/navigation-menu:border group-data-[viewport=false]/navigation-menu:shadow group-data-[viewport=false]/navigation-menu:duration-200",
         className
       )}
       {...props}

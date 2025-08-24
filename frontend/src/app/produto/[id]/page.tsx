@@ -24,10 +24,8 @@ export default function ProdutoPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  // ✅ Resolve o params com React.use()
   const { id } = use(params);
 
-  // Aqui já pode usar o id normalmente
   const [quantidade, setQuantidade] = useState(1);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [produto, setProduto] = React.useState<any>(null);
@@ -44,12 +42,13 @@ export default function ProdutoPage({
 
   return (
     <main className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
-      <section className="scale-75">
+      <section className="hidden md:block md:scale-75">
         <Line />
       </section>
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 justify-center items-center h-full mt-5 ">
+
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-20 justify-center items-center md:items-start h-full mt-5 px-4">
         {/* Carrossel */}
-        <div className="flex justify-center flex-col md:w-[600px] h-full">
+        <div className="w-full md:w-[600px] flex flex-col">
           <Carousel>
             <CarouselPrevious className="hover:cursor-pointer" />
             <CarouselContent>
@@ -58,13 +57,13 @@ export default function ProdutoPage({
                   imagem: { url: string | StaticImport },
                   i: React.Key | null | undefined
                 ) => (
-                  <CarouselItem key={i} className="w-[2000px] h-full">
+                  <CarouselItem key={i} className="w-full">
                     <AspectRatio
                       ratio={1 / 1}
-                      className="bg-muted overflow-hidden w-full h-full rounded-sm"
+                      className="bg-muted overflow-hidden w-full h-full rounded-md"
                     >
                       <Image
-                        src={imagem.url} // pegando a url do objeto
+                        src={imagem.url}
                         alt={`Imagem do produto ${produto.nome}`}
                         fill
                         className="object-cover select-none"
@@ -79,22 +78,22 @@ export default function ProdutoPage({
             <CarouselNext className="hover:cursor-pointer" />
           </Carousel>
           <p className="text-xs text-center my-2">
-            Imagens: <span className=" font-semibold">{produto.origem}</span>
+            Imagens: <span className="font-semibold">{produto.origem}</span>
           </p>
         </div>
 
         {/* Informações do produto */}
-        <div className="flex h-full w-full flex-col gap-5 flex-1">
+        <div className="flex flex-col gap-5 flex-1 w-full">
           <div>
-            <h1 className="text-3xl font-bold leading-tight mb-4">
+            <h1 className="text-2xl md:text-3xl font-bold leading-tight mb-4 text-center md:text-left">
               {produto.nome}
             </h1>
-            <div className="flex items-center justify-between mb-4 flex-row">
-              <p className="text-2xl font-semibold text-black ">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
+              <p className="text-xl md:text-2xl font-semibold text-black text-center md:text-left">
                 R$ {produto.preco},00{" "}
                 <span className="text-sm font-thin text-gray-500">via Pix</span>
               </p>
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-wrap gap-2 justify-center md:justify-end">
                 <Badge>
                   {produto.categoria === "filmes-e-series"
                     ? "Filmes e Séries"
@@ -111,20 +110,16 @@ export default function ProdutoPage({
             />
           </div>
 
-          {/* Seletor de quantidade */}
-
-          <div className="">
-            <p className="text-gray-700 mb-4 text-lg leading-relaxed break-words text-justify max-w-lg ">
+          {/* Descrição e especificações */}
+          <div>
+            <p className="text-gray-700 mb-4 text-base leading-relaxed break-words text-justify">
               {produto.descricao}
             </p>
-            <div className="border border-gray-300 rounded-md overflow-hidden max-w-lg">
-              {/* Cabeçalho */}
+            <div className="border border-gray-300 rounded-md overflow-hidden">
               <div className="bg-gray-100 px-4 py-2 text-gray-800 font-semibold">
                 Especificações Técnicas
               </div>
-
-              {/* Conteúdo */}
-              <div className="divide-y divide-gray-200">
+              <div className="divide-y divide-gray-200 text-sm md:text-base">
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Largura</span>
                   <span>
@@ -157,7 +152,6 @@ export default function ProdutoPage({
                     cm
                   </span>
                 </div>
-
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Peso</span>
                   <span>
@@ -170,13 +164,14 @@ export default function ProdutoPage({
                 </div>
                 <div className="flex justify-between px-4 py-2">
                   <span className="font-medium text-gray-600">Material</span>
-                  <span>{produto.material}</span>
+                  <span>{produto.material || "—"}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col justify-center md:flex-row gap-4">
+          {/* Botões de ação */}
+          <div className="flex mb-5 flex-col md:flex-row justify-center gap-4">
             <BotaoAdicionarCarrinho produto={{ ...produto, quantidade }} />
             <BotaoComprarAgora
               produtoNome={produto.nome}

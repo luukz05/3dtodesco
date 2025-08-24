@@ -2,6 +2,7 @@ import Line from "@/components/line";
 import SidebarFiltro from "@/components/SidebarFiltro";
 import ListaProdutos from "@/components/ListaProdutos";
 import { FiltroProvider } from "@/context/FiltroContext";
+import SidebarFiltroMobile from "@/components/SidebarFiltroMobile";
 
 type ImagemProduto = { url: string; origem: string };
 type Produto = {
@@ -37,20 +38,31 @@ export default async function ProdutosPorCategoria({
   );
 
   return (
-    <main className="min-h-screen bg-gray-50 text-gray-900 flex gap-6">
+    <main className="min-h-screen bg-gray-50 text-gray-900">
       <FiltroProvider>
-        <SidebarFiltro subcategorias={subcategorias} />
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Sidebar fixa no desktop */}
+          <aside className="hidden md:block w-64 shrink-0">
+            <SidebarFiltro subcategorias={subcategorias} />
+          </aside>
 
-        <section className="flex-1">
-          <Line />
-          <h1 className="text-4xl font-medium text-center mb-10 mt-10">
-            {categoria === "filmes-e-series"
-              ? "Filmes e Séries"
-              : categoria.charAt(0).toUpperCase() + categoria.slice(1)}
-          </h1>
+          {/* Conteúdo principal */}
+          <section className="flex-1 px-4 md:px-0">
+            <div className="scale-75">
+              <Line />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-medium text-center mb-6 mt-2">
+              {categoria === "filmes-e-series"
+                ? "Filmes e Séries"
+                : categoria.charAt(0).toUpperCase() + categoria.slice(1)}
+            </h1>
 
-          <ListaProdutos produtos={produtos} />
-        </section>
+            {/* Botão + Sidebar no mobile */}
+            <SidebarFiltroMobile subcategorias={subcategorias} />
+
+            <ListaProdutos produtos={produtos} />
+          </section>
+        </div>
       </FiltroProvider>
     </main>
   );

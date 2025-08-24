@@ -34,8 +34,8 @@ export default function CartIcon() {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className="w-[500px] mr-5 p-4">
-        <h3 className="font-bold mb-2 ">Carrinho</h3>
+      <PopoverContent className="w-screen max-w-sm mr-1 sm:max-w-md md:w-[500px] md:mr-5 p-4 rounded-md">
+        <h3 className="font-bold mb-2 text-center md:text-left">Carrinho</h3>
         {carrinho.length === 0 ? (
           <p className="text-center text-gray-500/40">
             Seu carrinho está vazio :(
@@ -47,43 +47,44 @@ export default function CartIcon() {
                 className="grid grid-cols-12 items-center p-2 border-b"
                 key={`${item._id}-${index}`}
               >
-                {/* Nome do produto ocupa mais espaço */}
-                <p className="col-span-6 text-sm font-semibold">{item.nome}</p>
-
-                {/* Preço */}
-                <p className="col-span-2 text-sm text-center">
-                  R$ {item.preco},00
+                {/* Nome ocupa mais espaço no mobile */}
+                <p className="col-span-5 text-xs sm:text-sm font-semibold truncate">
+                  {item.nome}
+                </p>
+                <p className="col-span-2 text-xs sm:text-sm text-right text-black/50">
+                  {item.quantidade} un.
                 </p>
 
-                {/* Quantidade */}
-                <p className="col-span-2 text-xs text-right text-black/50">
-                  {item.quantidade} un.
+                {/* Preço */}
+                <p className="col-span-3 text-xs sm:text-sm text-right">
+                  R$ {item.preco},00
                 </p>
 
                 {/* Botão remover */}
                 <Button
                   variant="ghost"
+                  size="icon"
                   className="col-span-2 text-red-600 hover:text-red-800 justify-self-end hover:cursor-pointer"
                   onClick={() => removerProduto(item.cartItemId)}
                 >
-                  <RxCross2 className="" />
+                  <RxCross2 className="size-4 sm:size-5" />
                 </Button>
               </div>
             ))}
 
-            <div className="flex justify-between items-center mt-4 gap-2">
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
               <Button
-                className="mt-2 flex-1 bg-green-600 hover:bg-green-500 text-white"
+                className="w-full sm:flex-1 bg-green-600 hover:bg-green-500 text-white"
                 onClick={finalizarCompra}
               >
                 Finalizar no WhatsApp
                 <ImWhatsapp className="size-4 ml-1" />
               </Button>
               <Button
-                className="mt-2 w-1/3 bg-red-600 hover:bg-red-500 text-white"
+                className="w-full sm:w-1/3 bg-red-600 hover:bg-red-500 text-white"
                 onClick={limparCarrinho}
               >
-                Limpar Carrinho
+                Limpar
                 <TbShoppingCartX className="size-4 ml-1" />
               </Button>
             </div>
