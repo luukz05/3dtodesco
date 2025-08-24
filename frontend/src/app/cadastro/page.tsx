@@ -44,10 +44,13 @@ export default function CadastroProdutoForm() {
     imagens.forEach((file) => formData.append("imagens", file));
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/api/produtos", {
-        method: "POST",
-        body: formData,
-      });
+      const res = await fetch(
+        "https://threedtodesco.onrender.com/api/produtos",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!res.ok) throw new Error("Erro ao cadastrar produto");
 

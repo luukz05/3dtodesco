@@ -17,7 +17,7 @@ type Params = Promise<{ categoria: string }>;
 
 async function getProdutos(categoria: string): Promise<Produto[]> {
   const res = await fetch(
-    `http://127.0.0.1:5000/api/produtos/categoria/${categoria}`,
+    `https://threedtodesco.onrender.com/api/produtos/categoria/${categoria}`,
     { cache: "no-store" }
   );
   if (!res.ok) return [];

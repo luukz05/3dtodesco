@@ -33,7 +33,7 @@ export default function ProdutoPage({
   const [produto, setProduto] = React.useState<any>(null);
 
   React.useEffect(() => {
-    fetch(`http://127.0.0.1:5000/api/produtos/${id}`)
+    fetch(`https://threedtodesco.onrender.com/api/produtos/${id}`)
       .then((res) => res.json())
       .then(setProduto);
   }, [id]);

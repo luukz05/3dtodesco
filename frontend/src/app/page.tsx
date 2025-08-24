@@ -33,7 +33,9 @@ export default function Home() {
   useEffect(() => {
     async function fetchProdutos() {
       try {
-        const res = await fetch("http://127.0.0.1:5000/api/produtos");
+        const res = await fetch(
+          "https://threedtodesco.onrender.com/api/produtos"
+        );
         const data = await res.json();
         setProdutos(data);
       } catch (error) {
