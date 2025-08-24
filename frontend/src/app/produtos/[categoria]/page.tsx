@@ -27,7 +27,9 @@ type CategoriaProps = {
   };
 };
 
-export default function ProdutosPorCategoria({ params }: CategoriaProps) {
+export default function ProdutosPorCategoria({
+  params,
+}: Readonly<CategoriaProps>) {
   const { categoria } = params;
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [subcategorias, setSubcategorias] = useState<string[]>([]);
@@ -37,8 +39,7 @@ export default function ProdutosPorCategoria({ params }: CategoriaProps) {
     async function fetchProdutos() {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/produtos/categoria/${categoria}`,
-          { cache: "no-store" }
+          `http://localhost:5000/api/produtos/categoria/${categoria}`
         );
         const data: Produto[] = res.ok ? await res.json() : [];
         setProdutos(data);
