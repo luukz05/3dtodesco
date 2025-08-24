@@ -21,11 +21,13 @@ type Produto = {
   subcategoria?: string;
 };
 
-export default function ProdutosPorCategoria({
-  params,
-}: {
-  params: { categoria: string };
-}) {
+type CategoriaProps = {
+  params: {
+    categoria: string;
+  };
+};
+
+export default function ProdutosPorCategoria({ params }: CategoriaProps) {
   const { categoria } = params;
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [subcategorias, setSubcategorias] = useState<string[]>([]);
