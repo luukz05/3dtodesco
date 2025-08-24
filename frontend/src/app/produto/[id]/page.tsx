@@ -29,6 +29,7 @@ export default function ProdutoPage({
 
   // Aqui já pode usar o id normalmente
   const [quantidade, setQuantidade] = useState(1);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [produto, setProduto] = React.useState<any>(null);
 
   React.useEffect(() => {
