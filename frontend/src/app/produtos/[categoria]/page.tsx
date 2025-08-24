@@ -26,6 +26,7 @@ export default async function ProdutosPorCategoria({
   params,
 }: {
   params: { categoria: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const { categoria } = params;
   const produtos = await getProdutos(categoria);
