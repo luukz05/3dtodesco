@@ -5,6 +5,7 @@ import { CartProvider } from "@/context/CartContext";
 import { NavigationMenu } from "@/components/ui/navigation-menu";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
+import ScrollToTop from "@/components/ScrollToTop"; // 👈 importado
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className="bg-gray-50">
         <CartProvider>
           <NavigationMenu />
+          <ScrollToTop />
           {children}
           <Toaster position="bottom-center" richColors />
         </CartProvider>
