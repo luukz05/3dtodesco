@@ -13,6 +13,8 @@ type Produto = {
   subcategoria?: string;
 };
 
+type Params = Promise<{ categoria: string }>;
+
 async function getProdutos(categoria: string): Promise<Produto[]> {
   const res = await fetch(
     `http://127.0.0.1:5000/api/produtos/categoria/${categoria}`,
@@ -25,10 +27,9 @@ async function getProdutos(categoria: string): Promise<Produto[]> {
 export default async function ProdutosPorCategoria({
   params,
 }: {
-  params: { categoria: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Params;
 }) {
-  const { categoria } = params;
+  const { categoria } = await params;
   const produtos = await getProdutos(categoria);
 
   const subcategorias: string[] = Array.from(
