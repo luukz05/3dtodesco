@@ -45,7 +45,7 @@ export default function CadastroProdutoForm() {
 
     try {
       const res = await fetch(
-        "http://threedtodesco.onrender.com/api/produtos",
+        "https://threedtodesco.onrender.com/api/produtos",
         {
           method: "POST",
           body: formData,

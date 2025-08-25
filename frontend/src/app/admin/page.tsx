@@ -32,7 +32,9 @@ export default function ProdutosPage() {
   // Buscar produtos
   const fetchProdutos = async () => {
     try {
-      const res = await fetch("http://threedtodesco.onrender.com/api/produtos");
+      const res = await fetch(
+        "https://threedtodesco.onrender.com/api/produtos"
+      );
       const data = await res.json();
       setProdutos(data);
     } catch (err) {
@@ -106,7 +108,7 @@ export default function ProdutosPage() {
       novasImagens.forEach((file) => formData.append("novasImagens", file));
 
       const res = await fetch(
-        `http://threedtodesco.onrender.com/api/produtos/${id}`,
+        `https://threedtodesco.onrender.com/api/produtos/${id}`,
         {
           method: "PUT",
           body: formData,
@@ -132,7 +134,7 @@ export default function ProdutosPage() {
 
     try {
       const res = await fetch(
-        `http://threedtodesco.onrender.com/api/produtos/${id}`,
+        `https://threedtodesco.onrender.com/api/produtos/${id}`,
         {
           method: "DELETE",
         }

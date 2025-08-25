@@ -34,7 +34,7 @@ export default function Home() {
     async function fetchProdutos() {
       try {
         const res = await fetch(
-          "http://threedtodesco.onrender.com/api/produtos"
+          "https://threedtodesco.onrender.com/api/produtos"
         );
         const data = await res.json();
         setProdutos(data);
