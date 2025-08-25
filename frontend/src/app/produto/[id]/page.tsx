@@ -31,7 +31,7 @@ export default function ProdutoPage({
   const [produto, setProduto] = React.useState<any>(null);
 
   React.useEffect(() => {
-    fetch(`https://threedtodesco.onrender.com/api/produtos/${id}`)
+    fetch(`http://threedtodesco.onrender.com/api/produtos/${id}`)
       .then((res) => res.json())
       .then(setProduto);
   }, [id]);
@@ -101,8 +101,7 @@ export default function ProdutoPage({
         {/* Carrossel */}
         <div className="w-full md:w-[600px] flex flex-col">
           <Carousel>
-            <CarouselPrevious className="hidden md:block hover:cursor-pointer" />
-
+            <CarouselPrevious className=" hover:cursor-pointer" />
             <CarouselContent>
               {(produto.imagens || []).map(
                 (
@@ -127,7 +126,7 @@ export default function ProdutoPage({
                 )
               )}
             </CarouselContent>
-            <CarouselNext className="hidden md:block hover:cursor-pointer" />
+            <CarouselNext className=" hover:cursor-pointer" />
           </Carousel>
           <p className="text-xs text-center my-2">
             Imagens: <span className="font-semibold">{produto.origem}</span>

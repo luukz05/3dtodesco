@@ -12,7 +12,11 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, origins=[
     "http://localhost:3000",
-    "https://3dtodesco.vercel.app"
+    "https://3dtodesco.vercel.app",
+    "http://127.0.0.1:5000",
+    "https://3dtodesco.shop",
+    "https://www.3dtodesco.shop"
+
 ])
 
 try:
@@ -205,6 +209,121 @@ def criar_produto():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+# --- ATUALIZAR PRODUTO ---
+@app.route('/api/produtos/<id>', methods=['PUT'])
+def atualizar_produto(id):
+    try:
+        produto = produtos_collection.find_one({'_id': ObjectId(id)})
+        if not produto:
+            return jsonify({'error': 'Produto não encontrado'}), 404
+
+        data = request.form
+        update_data = {}
+
+        # Campos normais
+        campos = [
+            'nome', 'descricao', 'preco', 'altura', 'largura',
+            'profundidade', 'peso', 'material', 'origem',
+            'categoria', 'subcategoria'
+        ]
+
+        for campo in campos:
+            valor = data.get(campo)
+            if valor is not None:
+                if campo in ['preco', 'altura', 'largura', 'profundidade', 'peso']:
+                    try:
+                        update_data[campo] = float(valor)
+                    except:
+                        update_data[campo] = valor
+                else:
+                    update_data[campo] = valor
+
+        # Destaque (booleano)
+        if "destaque" in data:
+            update_data['destaque'] = data.get("destaque", "false").lower() in ["true", "1", "yes"]
+
+        # Reordenar imagens existentes
+        imagens = produto.get("imagens", [])
+        imagensOrdem = data.get("imagensOrdem")
+        if imagensOrdem:
+            try:
+                import json
+                nova_ordem_urls = json.loads(imagensOrdem)
+                # reorganiza conforme a ordem recebida
+                nova_ordem = []
+                for url in nova_ordem_urls:
+                    for img in imagens:
+                        if img["url"] == url:
+                            nova_ordem.append(img)
+                            break
+                imagens = nova_ordem
+            except Exception as e:
+                print("Erro ao processar imagensOrdem:", e)
+
+        # Upload de novas imagens
+        if "novasImagens" in request.files:
+            novas = request.files.getlist("novasImagens")
+            for img in novas:
+                resultado = cloudinary.uploader.upload(img)
+                imagens.append({
+                    "url": resultado['secure_url'],
+                    "origem": "upload"
+                })
+
+        update_data["imagens"] = imagens
+
+        produtos_collection.update_one(
+            {"_id": ObjectId(id)},
+            {"$set": update_data}
+        )
+
+        produto_atualizado = produtos_collection.find_one({"_id": ObjectId(id)})
+        produto_atualizado["_id"] = str(produto_atualizado["_id"])
+        return jsonify(produto_atualizado), 200
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
+# --- DELETAR PRODUTO ---
+@app.route('/api/produtos/<id>', methods=['DELETE'])
+def deletar_produto(id):
+    try:
+        resultado = produtos_collection.delete_one({"_id": ObjectId(id)})
+        if resultado.deleted_count == 0:
+            return jsonify({'error': 'Produto não encontrado'}), 404
+        return jsonify({'message': 'Produto excluído com sucesso'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
+# --- REMOVER UMA IMAGEM ESPECÍFICA ---
+@app.route('/api/produtos/<id>/imagem', methods=['DELETE'])
+def remover_imagem(id):
+    try:
+        data = request.json
+        url = data.get("url")
+
+        if not url:
+            return jsonify({"error": "URL da imagem é obrigatória"}), 400
+
+        produto = produtos_collection.find_one({"_id": ObjectId(id)})
+        if not produto:
+            return jsonify({"error": "Produto não encontrado"}), 404
+
+        novas_imagens = [img for img in produto.get("imagens", []) if img["url"] != url]
+
+        produtos_collection.update_one(
+            {"_id": ObjectId(id)},
+            {"$set": {"imagens": novas_imagens}}
+        )
+
+        return jsonify({"message": "Imagem removida com sucesso"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 
