@@ -102,7 +102,7 @@ export default function ProdutoPage({
           {/* Carrossel */}
           <div className="w-full md:w-[600px] flex flex-col flex-shrink-0">
             <Carousel>
-              <CarouselPrevious className="hidden sm:block hover:cursor-pointer" />
+              <CarouselPrevious className="hidden md:block hover:cursor-pointer" />
               <CarouselContent className="w-full">
                 {(produto.imagens || []).map(
                   (
@@ -127,7 +127,7 @@ export default function ProdutoPage({
                   )
                 )}
               </CarouselContent>
-              <CarouselNext className="hidden sm:block hover:cursor-pointer" />
+              <CarouselNext className="hidden md:block hover:cursor-pointer" />
             </Carousel>
             <p className="text-xs text-center my-2">
               Imagens: <span className="font-semibold">{produto.origem}</span>
