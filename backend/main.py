@@ -10,14 +10,7 @@ from flask_cors import CORS
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=[
-    "http://localhost:3000",
-    "https://3dtodesco.vercel.app",
-    "http://127.0.0.1:5000",
-    "https://3dtodesco.shop",
-    "https://www.3dtodesco.shop"
-
-])
+CORS(app)
 
 try:
     client = MongoClient(os.getenv('MONGO_URI'))
