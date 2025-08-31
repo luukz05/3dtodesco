@@ -108,11 +108,13 @@ export default function CadastroProdutoModal() {
       });
       setImagens([]);
       setOpen(false); // fecha o modal
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
-      toast.error(err.message || "Erro ao cadastrar produto");
-    } finally {
-      setLoading(false);
+      if (err instanceof Error) {
+        toast.error(err.message || "Erro ao cadastrar produto");
+      } else {
+        toast.error("Erro desconhecido ao cadastrar produto");
+      }
     }
   };
 
