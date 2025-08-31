@@ -184,7 +184,7 @@ def criar_produto():
             'largura': float(largura) if largura else "N/A",
             'profundidade': float(profundidade) if profundidade else "N/A",
             'peso': float(peso) if peso else "N/A",
-            'material': material if material else "N/A",
+            'material': material if material else "PLA",
             'origem': origem,
             'categoria': categoria,
             'subcategoria': subcategoria,  # <- novo

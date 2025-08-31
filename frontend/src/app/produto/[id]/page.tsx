@@ -93,39 +93,71 @@ export default function ProdutoPage({
       </section>
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-20 justify-center items-center md:items-start h-full mt-5 px-4">
         {/* Carrossel */}
-        <div className="w-full md:w-[600px] flex flex-col">
+        <div className="w-full md:w-[600px] flex flex-col ">
           <Carousel>
-            <CarouselPrevious className="hidden md:block hover:cursor-pointer" />
-            <CarouselContent>
-              {(produto.imagens || []).map(
-                (
-                  imagem: { url: string | StaticImport },
-                  i: React.Key | null | undefined
-                ) => (
-                  <CarouselItem key={i} className="w-full">
-                    <AspectRatio
-                      ratio={1 / 1}
-                      className="bg-muted overflow-hidden w-full h-full rounded-md"
-                    >
-                      <Image
-                        src={imagem.url}
-                        alt={`Imagem do produto ${produto.nome}`}
-                        fill
-                        className="object-cover select-none"
-                        priority={i === 0}
-                        loading={i === 0 ? "eager" : "lazy"}
-                      />
-                    </AspectRatio>
-                  </CarouselItem>
-                )
-              )}
-            </CarouselContent>
-            <CarouselNext className="hidden md:block hover:cursor-pointer" />
+            {/* Mobile - sem Previous e Next */}
+            <div className="md:hidden">
+              <CarouselContent>
+                {(produto.imagens || []).map(
+                  (
+                    imagem: { url: string | StaticImport },
+                    i: React.Key | null | undefined
+                  ) => (
+                    <CarouselItem key={i} className="w-full">
+                      <AspectRatio
+                        ratio={1 / 1}
+                        className="bg-muted overflow-hidden w-full h-full rounded-md"
+                      >
+                        <Image
+                          src={imagem.url}
+                          alt={`Imagem do produto ${produto.nome}`}
+                          fill
+                          className="object-cover select-none"
+                          priority={i === 0}
+                          loading={i === 0 ? "eager" : "lazy"}
+                        />
+                      </AspectRatio>
+                    </CarouselItem>
+                  )
+                )}
+              </CarouselContent>
+            </div>
+
+            {/* Desktop - com Previous e Next */}
+            <div className="hidden md:block">
+              <CarouselPrevious className="hover:cursor-pointer" />
+              <CarouselContent>
+                {(produto.imagens || []).map(
+                  (
+                    imagem: { url: string | StaticImport },
+                    i: React.Key | null | undefined
+                  ) => (
+                    <CarouselItem key={i} className="w-full">
+                      <AspectRatio
+                        ratio={1 / 1}
+                        className="bg-muted overflow-hidden w-full h-full rounded-md"
+                      >
+                        <Image
+                          src={imagem.url}
+                          alt={`Imagem do produto ${produto.nome}`}
+                          fill
+                          className="object-cover select-none"
+                          priority={i === 0}
+                          loading={i === 0 ? "eager" : "lazy"}
+                        />
+                      </AspectRatio>
+                    </CarouselItem>
+                  )
+                )}
+              </CarouselContent>
+              <CarouselNext className="hover:cursor-pointer" />
+            </div>
           </Carousel>
           <p className="text-xs text-center my-2">
             Imagens: <span className="font-semibold">{produto.origem}</span>
           </p>
         </div>
+
         {/* Informações do produto */}
         <div className="flex flex-col gap-5 flex-1 w-full">
           <div>
@@ -134,7 +166,10 @@ export default function ProdutoPage({
             </h1>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
               <p className="text-xl md:text-2xl font-semibold text-black text-center md:text-left">
-                R$ {produto.preco},00{" "}
+                {new Intl.NumberFormat("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                }).format(produto.preco)}{" "}
                 <span className="text-sm font-thin text-gray-500">via Pix</span>
               </p>
               <div className="flex flex-wrap gap-2 justify-center md:justify-end">
