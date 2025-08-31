@@ -142,7 +142,7 @@ export default function ProdutosPage() {
     <div className="max-w-5xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Lista de Produtos</h1>
       {produtos.length === 0 ? (
-        <p className="text-center">Nenhum produto cadastrado.</p>
+        <p className="text-center">Nenhum produto cadastrado</p>
       ) : (
         <div className="flex flex-col gap-6">
           <CadastroProdutoForm />
