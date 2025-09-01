@@ -13,7 +13,7 @@ export default function AdminLogin() {
   const router = useRouter();
 
   const handleLogin = () => {
-    if (user === "admin" && password === "1234") {
+    if (user === "admin" && password === "3dtodesco.shop123321") {
       localStorage.setItem("adminToken", "1234");
       router.push("/admin/dashboard");
     } else {

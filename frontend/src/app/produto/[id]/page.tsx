@@ -97,6 +97,7 @@ export default function ProdutoPage({
           <Carousel>
             {/* Mobile - sem Previous e Next */}
             <div className="md:hidden">
+              <CarouselPrevious className="hover:cursor-pointer hidden" />
               <CarouselContent>
                 {(produto.imagens || []).map(
                   (
@@ -121,6 +122,7 @@ export default function ProdutoPage({
                   )
                 )}
               </CarouselContent>
+              <CarouselNext className="hover:cursor-pointer hidden" />
             </div>
 
             {/* Desktop - com Previous e Next */}
