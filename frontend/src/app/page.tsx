@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import ItemCard from "@/components/ItemCard";
-import { MainNavigation } from "@/components/Navbar";
 import BackgroundCarousel from "@/components/BackgroundCarousel";
 import Line from "@/components/line";
-import { Sidebar } from "@/components/altmenu";
 
 type ImagemProduto = {
   url: string;
@@ -27,8 +25,22 @@ type Produto = {
   destaque: boolean;
 };
 
+function SkeletonCard() {
+  return (
+    <div className="animate-pulse flex flex-col rounded-2xl bg-white shadow-md overflow-hidden">
+      <div className="h-40 bg-gray-200 w-full"></div>
+      <div className="p-4 space-y-3">
+        <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+        <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+        <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [produtos, setProdutos] = useState<Produto[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchProdutos() {
@@ -40,6 +52,8 @@ export default function Home() {
         setProdutos(data);
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -63,7 +77,9 @@ export default function Home() {
           Produtos em Destaque
         </h1>
         <div className="max-w-7xl mx-auto grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {produtosDestaque.length > 0 ? (
+          {loading ? (
+            Array.from({ length: 4 }).map((_, i) => <SkeletonCard key={i} />)
+          ) : produtosDestaque.length > 0 ? (
             produtosDestaque.map((produto) => (
               <ItemCard
                 key={produto._id}
@@ -87,15 +103,17 @@ export default function Home() {
           Todos os produtos
         </h1>
         <div className="max-w-7xl mx-auto grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {produtos.map((produto) => (
-            <ItemCard
-              key={produto._id}
-              id={produto._id}
-              imagem={produto?.imagens?.[0]?.url}
-              preco={produto.preco}
-              nome={produto.nome}
-            />
-          ))}
+          {loading
+            ? Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)
+            : produtos.map((produto) => (
+                <ItemCard
+                  key={produto._id}
+                  id={produto._id}
+                  imagem={produto?.imagens?.[0]?.url}
+                  preco={produto.preco}
+                  nome={produto.nome}
+                />
+              ))}
         </div>
       </section>
     </main>

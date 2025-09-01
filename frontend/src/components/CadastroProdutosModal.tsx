@@ -121,7 +121,7 @@ export default function CadastroProdutoModal() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Cadastrar Produto</Button>
+        <Button className="block">Cadastrar Produto</Button>
       </DialogTrigger>
 
       <DialogContent className="max-w-2xl">
@@ -211,7 +211,7 @@ export default function CadastroProdutoModal() {
             <SelectContent>
               <SelectItem value="Games">Games</SelectItem>
               <SelectItem value="Animes">Animes</SelectItem>
-              <SelectItem value="Filmes e Séries">Filmes e Séries</SelectItem>
+              <SelectItem value="filmes-e-series">Filmes e Séries</SelectItem>
               <SelectItem value="Decorativos">Decorativos</SelectItem>
               <SelectItem value="Organizadores">Organizadores</SelectItem>
             </SelectContent>
